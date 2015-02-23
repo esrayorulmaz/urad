@@ -1,0 +1,8 @@
+class WelcomeController < ApplicationController
+  def index
+   @admin=Admin.new
+  end
+  def show
+   @admin=Admin.all
+  end
+end

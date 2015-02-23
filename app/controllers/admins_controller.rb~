@@ -1,0 +1,14 @@
+class AdminsController < ApplicationController
+  def index
+    @admins = Admin.all
+  end
+  def show
+  end
+  def kurum
+  end
+  def raduzm
+  end
+  def egitmen
+  end
+
+end

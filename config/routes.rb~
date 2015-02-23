@@ -1,0 +1,35 @@
+Rails.application.routes.draw do
+  devise_for :users
+  devise_for :installs
+  root 'welcome#index'
+  resources :admins, only: [:index, :show]
+
+  get 'admins/kurum'
+  get 'admins/raduzm'
+  get 'admins/egitmen'
+
+  get 'teachers/index'
+  get 'teachers/sinav'
+  get 'teachers/sinif'
+  get 'teachers/soru'
+  get 'teachers/talebe'
+
+  get 'students/index'
+  get 'students/egitmeniletisim'
+  get 'students/sinavarsiv'
+  get 'students/sinavdegerlendir'
+  get 'students/sinavlar'
+
+  get 'instutions/index'
+  get 'instutions/maliyet'
+  get 'instutions/raporlar'
+  get 'instutions/talep'
+
+  get 'radiologists/index'
+  get 'radiologists/konsultasyon'
+  get 'radiologists/maliyet'
+  get 'radiologists/talep'
+
+  get 'iletisims/index'
+
+end

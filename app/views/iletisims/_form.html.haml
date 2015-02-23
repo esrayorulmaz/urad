@@ -1,0 +1,32 @@
+
+= form_for @iletisim do |f|
+  - if @iletisim.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@iletisim.errors.count, "error")} prohibited this iletisim from being saved:"
+      %ul
+        - @iletisim.errors.full_messages.each do |msg|
+          %li= msg
+  %table{:style => "font-size:9pt; width:50%;"}
+    %tr
+      .field
+      %td
+        = f.label :"Gönderen"
+      %td
+        = f.text_field :sender, class: "input-group input-group-sm", style: " width:60%;"
+    %tr
+      .field
+      %td
+        = f.label "Konu"
+      %td
+        = f.text_field :title,class: "input-group input-group-sm", style: " width:60%;"
+    %tr
+      .field
+      %td
+        = f.label "İçerik"
+      %td
+        =f.text_area(:content, size: '25x5', class: "input-group input-group-sm" , style: " width:60%;")
+
+
+  .actions
+    %br
+      = f.submit 'Gönder',class: 'btn btn-success btn-xs'

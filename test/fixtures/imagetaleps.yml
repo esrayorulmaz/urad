@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  gonderen_tc: MyString
+  gonderen_name: MyString
+  gonderen_mail: MyString
+  image_tur: MyString
+
+two:
+  gonderen_tc: MyString
+  gonderen_name: MyString
+  gonderen_mail: MyString
+  image_tur: MyString

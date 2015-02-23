@@ -1,0 +1,90 @@
+<h2>Yeni Üye</h2>
+
+<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+  <%= devise_error_messages! %>
+
+<table style="font-size:9pt; width:40%;">
+  <tr>
+  <div class="field">
+    <td>
+       <%= f.label "E-mail" %></td><td>
+       <%= f.email_field :email, class: "input-group input-group-sm"  %></td></div></tr><tr>
+
+  <div class="field">
+    <td>
+       <%= f.label "Şifre" %>
+       <% if @validatable %>
+       <em>(<%= @minimum_password_length %> characters minimum)</em>
+       <% end %></td><td>
+       <%= f.password_field :password, autocomplete: "off" ,class: "input-group input-group-sm" %>    </td></div></tr><tr>
+
+  <div class="field">
+     <td>
+       <%= f.label "Şifre (Tekrar)" %> </td><td>
+       <%= f.password_field :password_confirmation, autocomplete: "off",class: "input-group input-group-sm"  %> </td></div></tr><tr>
+
+  <div class="dropdown-menu">
+      <td>
+        <%= f.label "Uyelik Türü" %> </td><td>
+        <%= f.select(:tur, options_for_select({"Admin" => "admin", "Öğrenci" => "student", "Eğitmen" => "teacher", "Kurum" => "instution","Radyoloji Uzmanı"=>"radiologist"}))%> </td></div></tr><tr>
+
+  <div class="field">
+      <td>
+        <%= f.label "Tc Kimlik/Vergi No:" %> </td><td>
+        <%= f.text_field :tc, autocomplete: "off",class: "input-group input-group-sm"  %> </td></div></tr><tr>
+
+  <div class="field">
+      <td>
+        <%= f.label "Ad Soyad:" %> </td><td>
+        <%= f.text_field :nameSurname, autocomplete: "off", class: "input-group input-group-sm" %>  </td></div></tr><tr>
+
+  <div class="field">
+      <td>
+        <%= f.label "Telefon:" %> </td><td>
+        <%= f.text_field :phone, autocomplete: "off", class: "input-group input-group-sm"  %> </td></div></tr><tr>
+
+  <div class="field">
+      <td>
+        <%= f.label "Adres:" %> </td><td>
+        <%= f.text_area(:adres, size: '25x5', class: "input-group input-group-sm" )%>  </td></div></tr><tr>
+
+  <div class="dropdown-menu">
+     <td>
+       <%= f.label "Uzmanlık Alanı" %> </td><td>
+       <%= f.select(:uzmnlk, options_for_select({"MR" => "MR", "BT" => "BT", "Röntgen" => "Röntgen", "US" => "US","PET"=>"PET","SPECT" => "SPECT"}))%> </br> </td></div></tr><tr>
+
+  <div class="dropdown-menu">
+     <td>
+       <%= f.label "Ünvan" %> </td><td>
+       <%= f.select(:unvn, options_for_select({"Prof." => "Prof.", "Doç." => "Doç.", "Yrd.Doç" => "Yrd.Doç", "Uzm.Dr" => "Uzm.Dr","Uzman"=>"Uzman"}))%> </br> </td></div></tr><tr>
+
+  <div class="field">
+     <td>
+        <%= f.label "Diploma Sicil No:" %> </td><td>
+        <%= f.text_field :dipScl, autocomplete: "off", class: "input-group input-group-sm"  %>  </td></div></tr><tr>
+
+   <div class="field">
+     <td>
+        <%= f.label "Üniversite:" %> </td><td>
+        <%= f.text_field :unviversty, autocomplete: "off",class: "input-group input-group-sm"  %>  </td></div></tr><tr>
+
+   <div class="field">
+     <td>
+        <%= f.label "Bölüm:" %> </td><td>
+        <%= f.text_field :bolum, autocomplete: "off",class: "input-group input-group-sm"  %> </td></div></tr><tr>
+
+   <div class="field">
+     <td>
+        <%= f.label "Sınıf:" %> </td><td>
+        <%= f.text_field :sinif, autocomplete: "off",class: "input-group input-group-sm"  %> </td></div></tr>
+
+  </table>
+</br>
+<div class="actions">
+  <tr>
+    <%= f.submit "Kaydol" %>  </tr>
+  <tr>
+  </tr>
+</div>
+<% end %>
+

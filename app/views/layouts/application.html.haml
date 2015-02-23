@@ -1,0 +1,97 @@
+
+%html
+  %head
+    %title Urad
+    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
+    = javascript_include_tag 'application', 'data-turbolinks-track' => true
+    = csrf_meta_tags
+
+    %meta{:charset => 'utf-8'}/
+    %meta{:content => 'IE=edge', 'http-equiv' => 'X-UA-Compatible'}/
+    %meta{:content => 'width=device-width, initial-scale=1', :name => 'viewport'}/
+    %meta{:content => '', :name => 'description'}/
+    %meta{:content => '', :name => 'author'}/
+    %title Urad
+    / Bootstrap core CSS
+  %body{:role => 'document'}
+    / Fixed navbar
+    %nav.navbar.navbar-inverse.navbar-fixed-top
+      .container
+        .navbar-header
+          %button.navbar-toggle.collapsed{'aria-controls' => 'navbar', 'aria-expanded' => 'false', 'data-target' => '#navbar', 'data-toggle' => 'collapse', :type => 'button'}
+            %span.sr-only Toggle navigation
+            %span.icon-bar
+            %span.icon-bar
+            %span.icon-bar
+          %a.navbar-brand{:href => root_path} URAD
+        #navbar.navbar-collapse.collapse
+          %ul.nav.navbar-nav
+            - if user_signed_in? && current_user.tur=='admin'
+              %li
+                =link_to 'Kullanıcı İşlemleri',admins_show_path
+              %li
+                =link_to 'Kurum Işlemleri',admins_kurum_path
+              %li
+                =link_to 'Radyoloji Uzm. Işlemleri',admins_raduzm_path
+              %li
+                =link_to 'Eğitmen Işlemleri',admins_egitmen_path
+              %li
+                =link_to 'Gelen Mesajlar',iletisims_path
+            - if user_signed_in? && current_user.tur=='teacher'
+              %li
+                =link_to 'Sınıf Oluştur',teachers_sinif_path
+              %li
+                =link_to 'Sınav Oluştur',teachers_sinav_path
+              %li
+                =link_to 'Ogrenci Tanımla',teachers_talebe_path
+              %li
+                =link_to 'Soru Oluştur',teachers_soru_path
+              %li
+                =link_to 'Iletişim',new_iletisim_path
+            - if user_signed_in? && current_user.tur=='student'
+              %li
+                =link_to 'Sınavlarım',students_sinavlar_path
+              %li
+                =link_to 'Sınav Arşivi',students_sinavarsiv_path
+              %li
+                =link_to 'Sınav degerlendirme',students_sinavdegerlendir_path
+              %li
+                =link_to 'Egitmen Iletişim',students_egitmeniletisim_path
+              %li
+                =link_to 'Iletişim',new_iletisim_path
+            - if user_signed_in? && current_user.tur=='instution'
+              %li
+                =link_to 'Taleplerim',imagetaleps_path
+              %li
+                =link_to 'Tamamlanan Raporlar',instutions_raporlar_path
+              %li
+                =link_to 'Maliyet Durumu',instutions_maliyet_path
+              %li
+                =link_to 'Iletişim',new_iletisim_path
+            - if user_signed_in? && current_user.tur=='radiologist'
+              %li
+                =link_to 'Degerlendirme Talepleri',radiologists_talep_path
+              %li
+                =link_to 'Konsültasyon',radiologists_konsultasyon_path
+              %li
+                =link_to 'Maliyet Durumu',radiologists_maliyet_path
+              %li
+                =link_to 'Iletişim',new_iletisim_path
+            %li
+            - if user_signed_in?
+              %li
+                =link_to "Çıkış", destroy_user_session_path, :method => :delete
+            -else
+              %li
+                = link_to "Giriş Yap", new_user_session_path
+              %li
+                = link_to "Yeni Üye", new_user_registration_path
+              %li
+                = link_to "Iletisim", new_iletisim_path
+
+
+
+    .container.theme-showcase{:role => "main"}
+      %ol.breadcrumb
+        = render_breadcrumbs :separator => " / "
+      = yield
