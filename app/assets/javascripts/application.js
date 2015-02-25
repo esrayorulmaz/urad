@@ -25,3 +25,6 @@ $(document).ready(function(){
         $(elem).wysihtml5();
     });
 })
+
+
+

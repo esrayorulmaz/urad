@@ -1,0 +1,60 @@
+= form_for @imagetalep , html: { multipart: true } do |f|
+
+  table style=("font-size:9pt; width:50%;") 
+    tr
+      .dropdown-menu
+      td
+        = f.label "Uzmanlık Alanı"
+      td
+        = f.select(:image_tur, options_for_select({"MR" => "MR", "BT" => "BT", "Röntgen" => "Röntgen", "US" => "US","PET"=>"PET","SPECT" => "SPECT"}))
+    tr
+      .dropdown-menu
+      td
+        = f.label "Radyoloji Uzman Unvanı"
+      td
+        = f.select(:unvan, options_for_select({"Prof." => "Prof.", "Doç." => "Doç.", "Yrd.Doç" => "Yrd.Doç", "Uzm.Dr" => "Uzm.Dr","Uzman"=>"Uzman"}))
+    tr
+      .field
+      td
+        = f.label "Hasta - Tc Kimlik No:"
+      td
+        = f.text_field :hastatc, autocomplete: "off", class: "input-group input-group-sm"
+    tr
+      .field
+      td
+        = f.label "Hasta - Ad- Soyadı"
+      td
+        = f.text_field :hastaname, autocomplete: "off", class: "input-group input-group-sm"
+    tr
+      .field
+      td
+        = f.label "Hasta - Yasi"
+      td
+        = f.text_field :hastayasi, autocomplete: "off", class: "input-group input-group-sm"
+    tr
+      .field
+      td
+        = f.label "Durum"
+      td
+        = f.text_field :durum, label_class: "custom-class", disabled: true
+
+    tr
+      .dropdown-menu
+      td
+        = f.label "Hasta - Cinsiyeti:"
+      td
+        = f.select(:hastacinsiyet, options_for_select({"Erkek" => "E", "Kadın" => "K"}))
+    tr
+      td
+        = f.label "carrierview "
+      td
+        =f.file_field :picture
+
+  br
+  b Radyolojik Görüntü:
+  br
+   = image_tag(@imagetalep.picture_url) if @imagetalep.picture?
+  br
+  .actions
+    = f.submit 'Kaydet',class: 'btn btn-default btn-xs'
+

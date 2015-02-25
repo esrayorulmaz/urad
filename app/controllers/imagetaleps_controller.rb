@@ -14,7 +14,8 @@ class ImagetalepsController < ApplicationController
 
   def new
     @imagetalep = Imagetalep.new
-    respond_with(@imagetalep)
+    @user=User.first
+    @imagetalep.durum="Talep"
   end
 
   def edit
@@ -28,8 +29,12 @@ class ImagetalepsController < ApplicationController
       @imagetalep.gonderen_mail=current_user.email
     end
     @imagetalep.durum="Talep"
-    @imagetalep.save
-    respond_with(@imagetalep)
+    if @imagetalep.save
+      respond_with(@imagetalep)
+    else
+      render "new"
+    end
+
   end
 
   def update
@@ -48,6 +53,6 @@ class ImagetalepsController < ApplicationController
     end
 
     def imagetalep_params
-      params.require(:imagetalep).permit(:gonderen_tc, :gonderen_name, :gonderen_mail, :image_tur,:image,:unvan,:hastatc, :hastaname, :hastacinsiyet, :hastayasi)
+      params.require(:imagetalep).permit(:gonderen_tc, :gonderen_name, :gonderen_mail, :image_tur,:image,:unvan,:hastatc, :hastaname, :hastacinsiyet, :hastayasi,:picture)
     end
 end

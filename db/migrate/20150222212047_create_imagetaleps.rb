@@ -6,12 +6,12 @@ class CreateImagetaleps < ActiveRecord::Migration
       t.string :gonderen_mail
       t.string :image_tur
       t.string :unvan
-      t.attachment :image
       t.text :hastatc
       t.text :hastaname
       t.integer :hastayasi
       t.text :hastacinsiyet
       t.text :durum
+      t.string  :picture
       t.timestamps
     end
   end

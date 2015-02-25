@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150223132209) do
+ActiveRecord::Schema.define(version: 20150225190842) do
 
   create_table "iletisims", force: true do |t|
     t.string   "title"
@@ -28,16 +28,13 @@ ActiveRecord::Schema.define(version: 20150223132209) do
     t.string   "image_tur"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "image_file_name"
-    t.string   "image_content_type"
-    t.integer  "image_file_size"
-    t.datetime "image_updated_at"
     t.string   "unvan"
     t.text     "hastatc"
     t.text     "hastaname"
     t.integer  "hastayasi"
     t.text     "hastacinsiyet"
     t.text     "durum"
+    t.string   "picture"
   end
 
   create_table "users", force: true do |t|

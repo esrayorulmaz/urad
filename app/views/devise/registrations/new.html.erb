@@ -1,5 +1,35 @@
 <h2>Yeni Üye</h2>
-
+<script type="text/javascript">
+    function turChange()
+    {
+        if (document.getElementById("turselect").value=='radiologist'||document.getElementById("turselect").value=='teacher')
+        {
+            document.getElementById('uzmnselect').style.display = '';document.getElementById('uzmnlbl').style.display = '';
+            document.getElementById('unvnselect').style.display = '';document.getElementById('unvnlbl').style.display = '';
+            document.getElementById('diptext').style.display = '';document.getElementById('diplbl').style.display = '';
+            document.getElementById('unvtext').style.display = 'none';document.getElementById('unvlbl').style.display = 'none';
+            document.getElementById('blmtext').style.display = 'none';document.getElementById('blmlbl').style.display = 'none';
+            document.getElementById('snftext').style.display = 'none';document.getElementById('snflbl').style.display = 'none';
+        }
+        else if (document.getElementById("turselect").value=='student')
+        {
+            document.getElementById('unvtext').style.display = '';document.getElementById('unvlbl').style.display = '';
+            document.getElementById('blmtext').style.display = '';document.getElementById('blmlbl').style.display = '';
+            document.getElementById('snftext').style.display = '';document.getElementById('snflbl').style.display = '';
+            document.getElementById('uzmnselect').style.display = 'none';document.getElementById('uzmnlbl').style.display = 'none';
+            document.getElementById('unvnselect').style.display = 'none';document.getElementById('unvnlbl').style.display = 'none';
+            document.getElementById('diptext').style.display = 'none';document.getElementById('diplbl').style.display = 'none';
+        }
+        else
+        {   document.getElementById('uzmnselect').style.display = 'none';document.getElementById('uzmnlbl').style.display = 'none';
+            document.getElementById('unvnselect').style.display = 'none';document.getElementById('unvnlbl').style.display = 'none';
+            document.getElementById('diptext').style.display = 'none';document.getElementById('diplbl').style.display = 'none';
+            document.getElementById('unvtext').style.display = 'none';document.getElementById('unvlbl').style.display = 'none';
+            document.getElementById('blmtext').style.display = 'none';document.getElementById('blmlbl').style.display = 'none';
+            document.getElementById('snftext').style.display = 'none';document.getElementById('snflbl').style.display = 'none';
+        }
+    }
+</script>
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
   <%= devise_error_messages! %>
 
@@ -23,59 +53,69 @@
        <%= f.label "Şifre (Tekrar)" %> </td><td>
        <%= f.password_field :password_confirmation, autocomplete: "off",class: "input-group input-group-sm"  %> </td></div></tr><tr>
 
-  <div class="dropdown-menu">
+  <div class="dropdown-menu" >
       <td>
         <%= f.label "Uyelik Türü" %> </td><td>
-        <%= f.select(:tur, options_for_select({"Admin" => "admin", "Öğrenci" => "student", "Eğitmen" => "teacher", "Kurum" => "instution","Radyoloji Uzmanı"=>"radiologist"}))%> </td></div></tr><tr>
+        <%= f.select :tur , {"Admin" => "admin", "Öğrenci" => "student", "Eğitmen" => "teacher", "Kurum" => "kurum","Radyoloji Uzmanı"=>"radiologist"},{},
+                     :onchange => "turChange()",
+                     :id =>"turselect" %> </td></div></tr><tr>
 
-  <div class="field">
+  <div class="field" >
       <td>
-        <%= f.label "Tc Kimlik/Vergi No:" %> </td><td>
-        <%= f.text_field :tc, autocomplete: "off",class: "input-group input-group-sm"  %> </td></div></tr><tr>
+        <%= f.label "Tc Kimlik/Vergi No:", :id=>"tclbl"%> </td><td>
+        <%= f.text_field :tc, autocomplete: "off",class: "input-group input-group-sm", :id=>"tcname", :maxlength=>"11"%> </td></div></tr><tr>
 
-  <div class="field">
+  <div class="field" >
       <td>
         <%= f.label "Ad Soyad:" %> </td><td>
         <%= f.text_field :nameSurname, autocomplete: "off", class: "input-group input-group-sm" %>  </td></div></tr><tr>
 
+
   <div class="field">
-      <td>
-        <%= f.label "Telefon:" %> </td><td>
-        <%= f.text_field :phone, autocomplete: "off", class: "input-group input-group-sm"  %> </td></div></tr><tr>
+     <td>
+       <%= f.label "Telefon:" %> </td><td>
+       <%= f.text_field :phone, autocomplete: "off", class: "input-group input-group-sm" %> </td></div></tr><tr>
+
 
   <div class="field">
       <td>
         <%= f.label "Adres:" %> </td><td>
         <%= f.text_area(:adres, size: '25x5', class: "input-group input-group-sm" )%>  </td></div></tr><tr>
 
-  <div class="dropdown-menu">
-     <td>
-       <%= f.label "Uzmanlık Alanı" %> </td><td>
-       <%= f.select(:uzmnlk, options_for_select({"MR" => "MR", "BT" => "BT", "Röntgen" => "Röntgen", "US" => "US","PET"=>"PET","SPECT" => "SPECT"}))%> </br> </td></div></tr><tr>
+  <div class="dropdown-menu" >
+     <td style="display:none;", id="uzmnlbl">
+       <%= f.label "Uzmanlık Alanı" %> </td>
+     <td style="display:none;", id="uzmnselect">
+       <%= f.select :uzmnlk, {"MR" => "MR", "BT" => "BT", "Röntgen" => "Röntgen", "US" => "US","PET"=>"PET","SPECT" => "SPECT"},{}%> </br> </td></div></tr><tr>
 
-  <div class="dropdown-menu">
-     <td>
-       <%= f.label "Ünvan" %> </td><td>
-       <%= f.select(:unvn, options_for_select({"Prof." => "Prof.", "Doç." => "Doç.", "Yrd.Doç" => "Yrd.Doç", "Uzm.Dr" => "Uzm.Dr","Uzman"=>"Uzman"}))%> </br> </td></div></tr><tr>
+  <div class="dropdown-menu" >
+     <td style="display:none;", id="unvnlbl">
+       <%= f.label "Ünvan" %> </td>
+     <td style="display:none;", id="unvnselect">
+       <%= f.select :unvn, {"Prof." => "Prof.", "Doç." => "Doç.", "Yrd.Doç" => "Yrd.Doç", "Uzm.Dr" => "Uzm.Dr","Uzman"=>"Uzman"},{} %> </br> </td></div></tr><tr>
 
   <div class="field">
-     <td>
-        <%= f.label "Diploma Sicil No:" %> </td><td>
+     <td style="display:none;", id="diplbl">
+        <%= f.label "Diploma Sicil No:" %> </td>
+     <td style="display:none;", id="diptext">
         <%= f.text_field :dipScl, autocomplete: "off", class: "input-group input-group-sm"  %>  </td></div></tr><tr>
 
    <div class="field">
-     <td>
-        <%= f.label "Üniversite:" %> </td><td>
+     <td style="display:none;", id="unvlbl">
+        <%= f.label "Üniversite:" %> </td>
+     <td style="display:none;", id="unvtext">
         <%= f.text_field :unviversty, autocomplete: "off",class: "input-group input-group-sm"  %>  </td></div></tr><tr>
 
    <div class="field">
-     <td>
-        <%= f.label "Bölüm:" %> </td><td>
+     <td style="display:none;", id="blmlbl">
+        <%= f.label "Bölüm:" %> </td>
+     <td style="display:none;", id="blmtext">
         <%= f.text_field :bolum, autocomplete: "off",class: "input-group input-group-sm"  %> </td></div></tr><tr>
 
    <div class="field">
-     <td>
-        <%= f.label "Sınıf:" %> </td><td>
+     <td style="display:none;", id="snflbl">
+        <%= f.label "Sınıf:" %> </td>
+     <td style="display:none;", id="snftext">
         <%= f.text_field :sinif, autocomplete: "off",class: "input-group input-group-sm"  %> </td></div></tr>
 
   </table>

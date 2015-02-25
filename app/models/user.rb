@@ -4,5 +4,5 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
-
+  validates :tc,:phone,:dipScl, :numericality => {:only_integer => true}
 end
