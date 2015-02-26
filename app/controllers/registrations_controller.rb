@@ -117,12 +117,12 @@ class RegistrationsController < Devise::RegistrationsController
   end
   def sign_up_params
     devise_parameter_sanitizer.sanitize(:sign_up)
-    params.require(:user).permit(:tur, :tc, :nameSurname, :phone,:adres,:uzmnlk,:unvn, :dipScl, :university, :bolum, :sinif,:aktif,:password, :password_confirmation, :current_password, :email)
+    params.require(:user).permit(:tur, :tc, :nameSurname, :phone,:adres,:uzmnlk,:unvn, :dipScl, :university, :bolum,:aktif ,:sinif,:password, :password_confirmation, :current_password, :email)
 
   end
   def account_update_params
     devise_parameter_sanitizer.sanitize(:account_update)
-    params.require(:user).permit(:tur, :tc, :nameSurname, :phone,:adres,:uzmnlk,:unvn, :dipScl, :university, :bolum, :sinif,:aktif,:password, :password_confirmation, :current_password, :email)
+    params.require(:user).permit(:tur, :tc, :nameSurname, :phone,:adres,:uzmnlk,:unvn, :dipScl, :university, :bolum,:aktif ,:sinif,:password, :password_confirmation, :current_password, :email)
 
   end
   def translation_scope

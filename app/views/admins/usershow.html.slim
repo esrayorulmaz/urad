@@ -1,0 +1,80 @@
+
+h2 Kullanıcı Bilgileri
+br
+br
+
+table style=("font-size:9pt; width:53%;")
+  tr
+    td
+      b Tc Kimlik/Vergi No:
+    td
+      = @user.tc
+  tr
+    td
+      b Adı Soyadı
+    td
+      = @user.nameSurname
+  tr
+    td
+      b Email:
+    td
+      = @user.email
+  tr
+    td
+      b Telefon:
+    td
+      = @user.phone
+  tr
+    td
+      b Adres:
+    td
+      = @user.adres
+  tr
+    td
+      b Üyelik Türü:
+    td
+      = @user.tur
+  tr
+    td
+      b Üyelik Durumu
+    td
+      = @user.aktif
+-if @user.tur=='radiologist'||@user.tur=='teacher'
+ table style=("font-size:9pt; width:35%;")
+  tr
+    td
+      b Uzmanlık Alanı:
+    td
+      = @user.uzmnlk
+  tr
+    td
+      b Unvanı:
+    td
+      = @user.unvn
+  tr
+    td
+      b Diploma Sicil No:
+    td
+      = @user.dipScl
+-if @user.tur=='student'||@user.tur=='teacher'
+ table style=("font-size:9pt; width:35%;")
+  tr
+    td
+      b Universite:
+    td
+      = @user.unviversty
+  tr
+    td
+      b Bölüm:
+    td
+      = @user.bolum
+  -if @user.tur=='student'
+  tr
+    td
+      b Sınıf:
+    td
+      = @user.sinif
+br
+br
+= link_to admins_show_path, class: 'btn btn-success btn-s' do
+  i.icon.glyphicon.glyphicon-circle-arrow-left

@@ -51,7 +51,7 @@ ActiveRecord::Schema.define(version: 20150225190842) do
     t.string   "unviversty"
     t.string   "bolum"
     t.string   "sinif"
-    t.string   "aktif"
+    t.boolean  "aktif"
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"

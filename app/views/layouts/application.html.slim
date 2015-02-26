@@ -58,7 +58,7 @@ html
                 =link_to 'Egitmen Iletişim',students_egitmeniletisim_path
               li
                 =link_to 'Iletişim',new_iletisim_path
-            - if user_signed_in? && current_user.tur=='instution'
+            - if user_signed_in?&& current_user.tur=='instution'
               li
                 =link_to 'Taleplerim',imagetaleps_path
               li
@@ -67,7 +67,7 @@ html
                 =link_to 'Maliyet Durumu',instutions_maliyet_path
               li
                 =link_to 'Iletişim',new_iletisim_path
-            - if user_signed_in? && current_user.tur=='radiologist'
+            - if user_signed_in?&& current_user.tur=='radiologist'
               li
                 =link_to 'Degerlendirme Talepleri',radiologists_talep_path
               li
@@ -76,11 +76,12 @@ html
                 =link_to 'Maliyet Durumu',radiologists_maliyet_path
               li
                 =link_to 'Iletişim',new_iletisim_path
-            li
+              li
             - if user_signed_in?
               li
                 =link_to "Çıkış", destroy_user_session_path, :method => :delete
-            -else
+            - else
+
               li
                 = link_to "Giriş Yap", new_user_session_path
               li

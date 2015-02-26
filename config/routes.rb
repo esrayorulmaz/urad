@@ -1,9 +1,15 @@
 Rails.application.routes.draw do
   resources :iletisims
   resources :imagetaleps
-  devise_for :users, :path_names => { :sign_up => "register" },:controllers => {:registrations => "registrations"}
+  devise_for :users, :path_names => { :sign_up => "register" },:controllers => {:registrations => "registrations",:sessions=>"sessions"}
 
+  resources :admins do
+    post :block, on: :member
+    post :unblock, on: :member
+    get :usershow, on: :member
+  end
   root 'welcome#index'
+  get 'welcome/bloke'
 
   get 'admins/index'
   get 'admins/show'
