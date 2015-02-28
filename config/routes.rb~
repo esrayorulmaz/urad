@@ -1,9 +1,29 @@
 Rails.application.routes.draw do
-  devise_for :users
-  devise_for :installs
-  root 'welcome#index'
-  resources :admins, only: [:index, :show]
+  resources :iletisims
+  resources :imagetaleps do
+    get :update_radyologlist , :as => 'update_radyologlist'
+    get :updateDurum,  on: :member
+  end
 
+  devise_for :users, :path_names => { :sign_up => "register" },:controllers => {:registrations => "registrations",:sessions=>"sessions"}
+
+  resources :admins do
+    post :block, on: :member
+    post :unblock, on: :member
+    get :usershow, on: :member
+  end
+
+  namespace :radiologists do
+    resources :imagetaleps, except: [:create, :new,:edit] do
+        get :updateDurum,  on: :member
+    end
+  end
+
+  root 'welcome#index'
+  get 'welcome/bloke'
+
+  get 'admins/index'
+  get 'admins/show'
   get 'admins/kurum'
   get 'admins/raduzm'
   get 'admins/egitmen'
@@ -23,13 +43,14 @@ Rails.application.routes.draw do
   get 'instutions/index'
   get 'instutions/maliyet'
   get 'instutions/raporlar'
-  get 'instutions/talep'
+
 
   get 'radiologists/index'
   get 'radiologists/konsultasyon'
   get 'radiologists/maliyet'
   get 'radiologists/talep'
 
-  get 'iletisims/index'
+
+
 
 end

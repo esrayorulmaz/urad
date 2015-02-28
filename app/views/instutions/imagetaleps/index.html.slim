@@ -1,0 +1,43 @@
+
+  h3 Oluşturulan Talep Listeleri
+  br
+  br
+  table.table style=("font-size:9pt; width:110%;")
+    thead
+      tr
+        th Görüntü Türü
+        th Degerlendirici Unvanı
+        th Hasta Tc
+        th Hasta Adı Soyadı
+        th Hasta Yaşı
+        th Hasta Cinsiyet
+        th Durum
+        th
+
+
+    tbody
+      - @imagetaleps.each do |imagetalep|
+        tr
+          td= imagetalep.image_tur
+          td= imagetalep.unvan
+          td= imagetalep.hastatc
+          td= imagetalep.hastaname
+          td= imagetalep.hastayasi
+          td= imagetalep.hastacinsiyet
+          td= imagetalep.durum
+          td
+            = link_to  imagetalep.picture_url class: 'btn btn-default btn-xs' do
+              i.icon.glyphicon.glyphicon-picture
+          td
+            = link_to  instutions_imagetalep_path(imagetalep), class: 'btn btn-default btn-xs' do
+              i.icon.glyphicon.glyphicon-eye-open
+            = link_to  edit_instutions_imagetalep_path(imagetalep), class: 'btn btn-default btn-xs' do
+              i.icon.glyphicon.glyphicon-pencil
+            = link_to  instutions_imagetalep_path(imagetalep), :method => :delete, :data => { :confirm => 'Veri silinecek?' }, class: 'btn btn-default btn-xs' do
+              i.glyphicon.glyphicon-trash
+
+  br
+
+  = link_to 'Talep Oluştur', new_instutions_imagetalep_path,class: 'btn btn-success btn-xs'
+
+

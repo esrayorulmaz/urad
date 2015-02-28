@@ -1,9 +1,8 @@
 class RadiologistsController < ApplicationController
 
   def index
-
+   
   end
-
   def konsultasyon
 
   end

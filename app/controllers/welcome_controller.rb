@@ -12,10 +12,10 @@ class WelcomeController < ApplicationController
           render '/students/index'
         end
         if current_user.tur=='instution'
-          render '/instutions/index'
+          redirect_to instutions_main_path
         end
         if current_user.tur=='radiologist'
-          render '/radiologists/index'
+          redirect_to  radiologists_main_path
         end
       else
         render '/welcome/index'

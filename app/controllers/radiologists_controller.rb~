@@ -1,0 +1,35 @@
+class RadiologistsController < ApplicationController
+
+  before_action :set_imagetalep, only: [:show,:UpdateDurum]
+  respond_to :html
+
+  private
+  def index
+    @imagetaleps = Imagetalep.where(["user_id= ?",current_user.id]).all
+    flash[:success] = 'Başarılı bir şekilde bloklandı.'
+  end
+
+  def updateDurum
+    @imagetalep=Imagetalep.find(params[:id])
+    @imagetalep.durum="Kabul"
+    Imagetalep.update(@imagetalep)
+    redirect_to :back
+  end
+  def konsultasyon
+
+  end
+
+  def maliyet
+
+  end
+
+  def talep
+
+  end
+
+  private
+  def set_imagetalep
+    @imagetalep = Imagetalep.find(params[:id])
+  end
+
+end

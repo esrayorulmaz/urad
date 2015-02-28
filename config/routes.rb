@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   resources :iletisims
-  resources :imagetaleps
+
+
   devise_for :users, :path_names => { :sign_up => "register" },:controllers => {:registrations => "registrations",:sessions=>"sessions"}
 
   resources :admins do
@@ -8,6 +9,20 @@ Rails.application.routes.draw do
     post :unblock, on: :member
     get :usershow, on: :member
   end
+
+  namespace :radiologists do
+    resources :imagetaleps, except: [:create, :new] do
+        get :updateDurum,  on: :member
+    resources :dashboard, only: :index
+    end
+  end
+  namespace :instutions do
+    resources :imagetaleps do
+      resources :dashboard, only: :index
+      get :update_radyologlist , :as => 'update_radyologlist'
+    end
+  end
+
   root 'welcome#index'
   get 'welcome/bloke'
 
@@ -29,15 +44,16 @@ Rails.application.routes.draw do
   get 'students/sinavdegerlendir'
   get 'students/sinavlar'
 
-  get 'instutions/index'
+  get 'instutions/main'
   get 'instutions/maliyet'
   get 'instutions/raporlar'
 
 
-  get 'radiologists/index'
+  get 'radiologists/main'
   get 'radiologists/konsultasyon'
   get 'radiologists/maliyet'
   get 'radiologists/talep'
+
 
 
 

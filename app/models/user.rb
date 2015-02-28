@@ -3,6 +3,6 @@ class User < ActiveRecord::Base
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
-
-  validates :tc,:phone,:dipScl, :numericality => {:only_integer => true}
+  has_many :imagetalep
+  validates :tc,:phone, :numericality => {:only_integer => true}
 end

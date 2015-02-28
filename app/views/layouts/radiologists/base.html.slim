@@ -1,0 +1,45 @@
+
+html
+  head
+    title Urad
+    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
+    = javascript_include_tag 'application', 'data-turbolinks-track' => true
+    = csrf_meta_tags
+
+    meta charset='utf-8' /
+    meta content='width=device-width, initial-scale=1' name='viewport' /
+    meta content='' name='description' /
+    meta content='' name='author' /
+    title Urad
+    /! Bootstrap core CSS
+  body role='document' 
+    /! Fixed navbar
+    nav.navbar.navbar-inverse.navbar-fixed-top
+      .container
+        .navbar-header
+          button.navbar-toggle.collapsed 'aria-controls' => 'navbar', 'aria-expanded' => 'false', 'data-target' => '#navbar', 'data-toggle' => 'collapse' type='button' 
+            span.sr-only Toggle navigation
+            span.icon-bar
+            span.icon-bar
+            span.icon-bar
+          a.navbar-brand href=root_path  URAD
+        #navbar.navbar-collapse.collapse
+          ul.nav.navbar-nav
+              li
+                =link_to 'Degerlendirme Talepleri',radiologists_imagetaleps_path
+              li
+                =link_to 'Konsültasyon',radiologists_konsultasyon_path
+              li
+                =link_to 'Maliyet Durumu',radiologists_maliyet_path
+              li
+                =link_to 'Iletişim',new_iletisim_path
+              li
+                =link_to "Çıkış", destroy_user_session_path, :method => :delete
+
+
+
+
+    .container.theme-showcase role="main" 
+      ol.breadcrumb
+        = render_breadcrumbs :separator => " / "
+      = yield

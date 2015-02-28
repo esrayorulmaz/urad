@@ -60,7 +60,7 @@ html
                 =link_to 'Iletişim',new_iletisim_path
             - if user_signed_in?&& current_user.tur=='instution'
               li
-                =link_to 'Taleplerim',imagetaleps_path
+                =link_to 'Taleplerim',instutions_imagetaleps_path
               li
                 =link_to 'Tamamlanan Raporlar',instutions_raporlar_path
               li
@@ -69,7 +69,7 @@ html
                 =link_to 'Iletişim',new_iletisim_path
             - if user_signed_in?&& current_user.tur=='radiologist'
               li
-                =link_to 'Degerlendirme Talepleri',radiologists_talep_path
+                =link_to 'Degerlendirme Talepleri',radiologists_imagetaleps_path
               li
                 =link_to 'Konsültasyon',radiologists_konsultasyon_path
               li

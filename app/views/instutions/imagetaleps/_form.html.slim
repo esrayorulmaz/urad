@@ -1,0 +1,94 @@
+
+
+= simple_form_for [:instutions,@imagetalep] ,validate: true, html: { multipart: true } do |f|
+
+  table style=("font-size:9pt; width:70%;")
+    tr
+      .dropdown-menu
+      td
+        = f.label "Uzmanlık Alanı"
+      td
+        = f.select :image_tur, {"MR" => "MR", "BT" => "BT", "Röntgen" => "Röntgen", "US" => "US","PET"=>"PET","SPECT" => "SPECT"},{},
+                   :id => 'uzmnlk_select'
+    tr
+      .dropdown-menu
+      td
+        = f.label "Radyoloji Uzman Unvanı"
+      td
+        = f.select :unvan,{"Prof." => "Prof.", "Doç." => "Doç.", "Yrd.Doç" => "Yrd.Doç", "Uzm.Dr" => "Uzm.Dr","Uzman"=>"Uzman"},{},
+                   :id => 'unvan_select'
+    tr
+      .field
+      td
+        = f.label "Radyoloji Uzmanı"
+      td
+        = f.select :user_id, options_for_select(User.where( tur: 'radiologist').all.map{ |u| [u.nameSurname,u.id] })
+    tr
+      .field
+      td
+        = f.label "Hasta - Tc Kimlik No:"
+      td
+        = f.text_field :hastatc, autocomplete: "off", class: "input-group input-group-sm"
+    tr
+      .field
+      td
+        = f.label "Hasta - Ad- Soyadı"
+      td
+        = f.text_field :hastaname, autocomplete: "off", class: "input-group input-group-sm"
+    tr
+      .field
+      td
+        = f.label "Hasta - Yasi"
+      td
+        = f.text_field :hastayasi, autocomplete: "off", class: "input-group input-group-sm"
+    tr
+      .field
+      td
+        = f.label "Durum"
+      td
+        = f.text_field :durum, label_class: "custom-class", disabled: true
+
+    tr
+      .dropdown-menu
+      td
+        = f.label "Hasta - Cinsiyeti:"
+      td
+        = f.select(:hastacinsiyet, options_for_select({"Erkek" => "E", "Kadın" => "K"}))
+    tr
+      td
+        = f.label "Görüntü Yükle:"
+      td
+        =f.file_field :picture
+
+  br
+  b Radyolojik Görüntü:
+  br
+   = image_tag(@imagetalep.picture_url) if @imagetalep.picture?
+  br
+  .actions
+    = f.submit 'Kaydet',class: 'btn btn-default btn-xs'
+
+
+//javascript:
+  $(document).ready(function () {
+    $('#uzmnlk_select').change(function () {
+      $.ajax({
+        url: "#{instutions_imagetalep_update_radyologlist_path}",
+        data: {
+          uzmnlk: $('#uzmnlk_select').val()
+        },
+        dataType: "script"
+      });
+    });
+    $('#unvan_select').change(function () {
+      $.ajax({
+        url: "#{instutions_imagetalep_update_radyologlist_path}",
+        data: {
+          unvan: $('#unvan_select').val()
+          uzmnlk: $('#uzmnlk_select').val()
+        },
+        dataType: "script"
+      });
+    });
+  });
+
