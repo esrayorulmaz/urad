@@ -35,3 +35,5 @@ gem "bullet", :group => "development"
 gem 'annotate', '~> 2.6.5'
 gem 'rails_config'
 gem 'carrierwave'
+gem 'wicked_pdf', github: 'mileszs/wicked_pdf'
+gem 'wkhtmltopdf-binary'

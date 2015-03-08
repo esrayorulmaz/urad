@@ -2,7 +2,7 @@
   h3 Oluşturulan Talep Listeleri
   br
   br
-  table.table style=("font-size:9pt; width:80%;")
+  table.table style=("font-size:9pt; width:90%;")
     thead
       tr
         th Görüntü Türü
@@ -10,8 +10,11 @@
         th Tc/Vergi No
         th  Mail
         th Durum
-
-
+        th
+        th
+        th
+        th
+        th
 
     tbody
       -  @imagetaleps.each do |imagetalep|
@@ -25,9 +28,12 @@
             i.icon.glyphicon.glyphicon-picture
           td= link_to  radiologists_imagetalep_path(imagetalep), class: 'btn btn-default btn-xs' do
             i.icon.glyphicon.glyphicon-eye-open
-          -if imagetalep.durum=="Kabul"
-            td=link_to radiologists_imagetalep_path(imagetalep) , class:'btn btn-default btn-xs' do
+          -if imagetalep.durum!="Talep"
+            td=link_to radiologists_report_path(imagetalep.id), class: 'btn btn-default btn-xs' do
               i.icon.glyphicon.glyphicon-paste
+          -if imagetalep.durum=="Rapor"
+            td=link_to "PDF" ,radiologists_report_path(imagetalep.id,:format => 'pdf')
           -else
             td
   br
+

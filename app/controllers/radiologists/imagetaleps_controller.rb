@@ -4,12 +4,7 @@ class Radiologists::ImagetalepsController <Radiologists::BaseController
   respond_to :html
 
   def index
-    if current_user.tur=="admin"
-      @imagetaleps = Imagetalep.where(["gonderen_mail= ?",current_user.email]).all
-    elsif current_user.tur=="radiologist"
-      @imagetaleps = Imagetalep.where(["user_id= ?",current_user.id]).all
-    end
-    respond_with(@imagetaleps)
+    @imagetaleps = Imagetalep.where(["user_id= ?",current_user.id]).all
   end
 
   def show
@@ -19,7 +14,7 @@ class Radiologists::ImagetalepsController <Radiologists::BaseController
 
 
   def edit
-
+   
   end
 
   def updateDurum

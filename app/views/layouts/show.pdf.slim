@@ -1,0 +1,59 @@
+pre  style=("width:63%;")
+  b align="left" style=("font-size:12pt;")                 URAD Radyoloji Değerlendirme Raporu
+br
+  table align="left" border="1" style=("font-size:9pt;")
+    tr
+      td style=("font-size:9pt; width:15%;")
+        b Hasta Tc No:
+      td style=("font-size:9pt; width:20%;")
+        =@report.imagetalep.hastatc
+      td style=("font-size:9pt; width:15%;")
+        b Rapor Tarihi:
+      td style=("font-size:9pt; width:20%;")
+        =@report.created_at
+    tr
+      td style=("font-size:9pt; width:15%;")
+        b Hasta Adı:
+      td style=("font-size:9pt; width:20%;")
+        = @report.imagetalep.hastaname
+      td style=("font-size:9pt; width:15%;")
+        b Kayıt Tarihi:
+      td style=("font-size:9pt; width:20%;")
+        = @report.imagetalep.created_at
+
+    tr
+      td style=("font-size:9pt; width:15%;")
+        b Hasta Yaşı:
+      td style=("font-size:9pt; width:20%;")
+        = @report.imagetalep.hastayasi
+      td style=("font-size:9pt; width:15%;")
+        b Tetkik Bölgesi:
+      td style=("font-size:9pt; width:20%;")
+
+    tr
+      td style=("font-size:9pt; width:15%;")
+        b Cinsiyet:
+      td style=("font-size:9pt; width:20%;")
+        = @report.imagetalep.hastacinsiyet
+      td style=("font-size:9pt; width:15%;")
+        b Modelite:
+      td style=("font-size:9pt; width:20%;")
+        = @report.imagetalep.image_tur
+
+
+br
+br
+br
+br
+br
+br
+= @report.content.html_safe
+br
+
+  b SONUÇ:
+  =@report.result
+br
+p
+h5 Saygılarımla
+=current_user.unvn
+=current_user.nameSurname

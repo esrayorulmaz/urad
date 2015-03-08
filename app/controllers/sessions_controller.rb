@@ -15,14 +15,18 @@
   def create
     @user=User.new(login_params)
     @us=User.where(["email= ?",@user.email]).first
-    if(@us.aktif==true)
-      self.resource = warden.authenticate!(auth_options)
-      set_flash_message(:notice, :signed_in) if is_flashing_format?
-      sign_in(resource_name, resource)
-      yield resource if block_given?
-      respond_with resource, location: after_sign_in_path_for(resource)
+    if(@us!=nil)
+      if(@us.aktif==true)
+        self.resource = warden.authenticate!(auth_options)
+        set_flash_message(:notice, :signed_in) if is_flashing_format?
+        sign_in(resource_name, resource)
+        yield resource if block_given?
+        respond_with resource, location: after_sign_in_path_for(resource)
+      else
+         redirect_to(welcome_bloke_path)
+      end
     else
-       redirect_to(welcome_bloke_path)
+      redirect_to new_user_registration_path
     end
   end
 # DELETE /resource/sign_out

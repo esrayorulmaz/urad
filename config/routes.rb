@@ -11,16 +11,18 @@ Rails.application.routes.draw do
   end
 
   namespace :radiologists do
+    get 'reports/reports_pdf'
+    resources :reports, except: [:destroy]
     resources :imagetaleps, except: [:create, :new] do
         get :updateDurum,  on: :member
-    resources :dashboard, only: :index
     end
+    resources :dashboard, only: :index
   end
   namespace :instutions do
     resources :imagetaleps do
-      resources :dashboard, only: :index
       get :update_radyologlist , :as => 'update_radyologlist'
     end
+    resources :dashboard, only: :index
   end
 
   root 'welcome#index'
@@ -31,6 +33,7 @@ Rails.application.routes.draw do
   get 'admins/kurum'
   get 'admins/raduzm'
   get 'admins/egitmen'
+
 
   get 'teachers/index'
   get 'teachers/sinav'
@@ -53,6 +56,7 @@ Rails.application.routes.draw do
   get 'radiologists/konsultasyon'
   get 'radiologists/maliyet'
   get 'radiologists/talep'
+  get 'radiologists/reports/show'
 
 
 

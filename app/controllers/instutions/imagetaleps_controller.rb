@@ -32,7 +32,7 @@ class Instutions::ImagetalepsController <Instutions::BaseController
     end
     @imagetalep.durum="Talep"
     if @imagetalep.save
-      respond_with(@imagetalep)
+      redirect_to instutions_imagetaleps_path
     else
       render "new"
     end
