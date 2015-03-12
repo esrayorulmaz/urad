@@ -1,5 +1,7 @@
 class AdminsController < ApplicationController
+
   def index
+
   end
   def show
     @users=User.all
@@ -7,11 +9,17 @@ class AdminsController < ApplicationController
   def usershow
     @user = User.find(params[:id])
   end
+
   def kurum
+
   end
+
   def raduzm
+
   end
+
   def egitmen
+
   end
 
 

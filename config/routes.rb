@@ -3,25 +3,42 @@ Rails.application.routes.draw do
 
 
   devise_for :users, :path_names => { :sign_up => "register" },:controllers => {:registrations => "registrations",:sessions=>"sessions"}
-
-  resources :admins do
+  resources :admins , only: [:unblock,:block,:usershow] do
     post :block, on: :member
     post :unblock, on: :member
     get :usershow, on: :member
   end
 
-  namespace :radiologists do
-    get 'reports/reports_pdf'
-    resources :reports, except: [:destroy]
-    resources :imagetaleps, except: [:create, :new] do
-        get :updateDurum,  on: :member
+
+  namespace :admins do
+    resources :reports, only: [ :show,:arsivshow] do
+      get :arsivshow, on: :member
+    end
+    resources :imagetaleps, only: [:show,:edit,:update, :index,:onayla,:reddet,:gecmis] do
+      get :onayla, on: :member
+      get :reddet, on: :member
+      get :gecmis, on: :member
     end
     resources :dashboard, only: :index
   end
+
+
+  namespace :radiologists do
+    resources :reports, except: [:destroy]
+    resources :imagetaleps, except: [:create, :new,:edit,:update] do
+      get :kabul
+    end
+    resources :dashboard, only: :index
+
+  end
+
+
   namespace :instutions do
+    resources :reports, only: :show
     resources :imagetaleps do
       get :update_radyologlist , :as => 'update_radyologlist'
     end
+
     resources :dashboard, only: :index
   end
 

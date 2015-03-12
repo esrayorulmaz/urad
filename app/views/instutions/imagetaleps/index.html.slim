@@ -35,9 +35,6 @@
               i.icon.glyphicon.glyphicon-pencil
             = link_to  instutions_imagetalep_path(imagetalep), :method => :delete, :data => { :confirm => 'Veri silinecek?' }, class: 'btn btn-default btn-xs' do
               i.glyphicon.glyphicon-trash
-            -if imagetalep.durum=="Rapor"
-              = link_to instutions_imagetalep_path(imagetalep), class: 'btn btn-default btn-xs' do
-                i.icon.glyphicon.glyphicon-paste
 
 
   br

@@ -13,6 +13,8 @@ class CreateImagetaleps < ActiveRecord::Migration
       t.text :durum
       t.bool  :picture
       t.string  :picture
+      t.integer :user_id
+      t.integer :report_id
       t.timestamps
     end
   end

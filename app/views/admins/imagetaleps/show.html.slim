@@ -1,0 +1,59 @@
+h2 Talep Ayrıntısı:
+br
+br
+
+table style=("font-size:9pt; width:35%;") 
+  tr
+    td
+      b Gonderen tc:
+    td
+      = @imagetalep.gonderen_tc
+  tr
+    td
+      b Gonderen Adı:
+    td
+      = @imagetalep.gonderen_name
+  tr
+    td
+      b Gonderen email:
+    td
+      = @imagetalep.gonderen_mail
+  tr
+    td
+      b Görüntülemeye Yöntemi:
+    td
+      = @imagetalep.image_tur
+  tr
+    td
+      b Hasta Tc Kimlik No:
+    td
+      = @imagetalep.hastatc
+  tr
+    td
+      b Hasta Adi Soyadı:
+    td
+      = @imagetalep.hastaname
+  tr
+    td
+      b Hasta Yaşı:
+    td
+      = @imagetalep.hastayasi
+  tr
+    td
+      b Hasta Cinsiyet:
+    td
+      = @imagetalep.hastacinsiyet.to_s
+  tr
+    td
+      b Durum:
+    td
+      = @imagetalep.durum
+
+br
+b Radyolojik Görüntü:
+br
+  = image_tag(@imagetalep.picture.url) if @imagetalep.picture?
+br
+      = link_to admins_imagetaleps_path(:format => @imagetalep.durum), class: 'btn btn-default btn-s' do
+        i.icon.glyphicon.glyphicon-circle-arrow-left
+

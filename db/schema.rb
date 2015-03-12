@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150301083047) do
+ActiveRecord::Schema.define(version: 20150312010134) do
 
   create_table "iletisims", force: true do |t|
     t.string   "title"
@@ -36,12 +36,22 @@ ActiveRecord::Schema.define(version: 20150301083047) do
     t.text     "durum"
     t.string   "picture"
     t.integer  "user_id"
+    t.integer  "report_id"
   end
 
   create_table "reports", force: true do |t|
     t.string   "title"
     t.text     "content"
     t.text     "result"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "onaylayan"
+    t.integer  "degerlendiren"
+  end
+
+  create_table "taleparsivs", force: true do |t|
+    t.integer  "rapor_id"
+    t.integer  "user_id"
     t.integer  "imagetalep_id"
     t.datetime "created_at"
     t.datetime "updated_at"

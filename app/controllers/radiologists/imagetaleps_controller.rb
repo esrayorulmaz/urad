@@ -13,18 +13,12 @@ class Radiologists::ImagetalepsController <Radiologists::BaseController
 
 
 
-  def edit
-   
-  end
 
-  def updateDurum
-  end
+  def kabul
+    @imagetalep = Imagetalep.find(params[:imagetalep_id])
+    @imagetalep.durum="Kabul"
+    @imagetalep.save
 
-
-
-  def update
-    a=params[:imagetalep]
-    @imagetalep.update_attribute(:durum, a["durum"])
     redirect_to :back
   end
 

@@ -11,12 +11,12 @@ class Radiologists::ReportsController < Radiologists::BaseController
 
   def show
 
-    if Report.where(["imagetalep_id=?",params[:id].to_i]).first==nil
+    if Imagetalep.where(["id=?",params[:id].to_i]).first.report==nil
       @report = Report.new
       $imagetalepid=params[:id].to_i
       render 'new'
     else
-      @report=Report.where(["imagetalep_id=?", params[:id].to_i]).first
+      @imagetalep=Imagetalep.where(["id=?", params[:id].to_i]).first
        if(params[:format]=="pdf")
          respond_to do |format|
            format.pdf do
@@ -30,19 +30,7 @@ class Radiologists::ReportsController < Radiologists::BaseController
     end
   end
 
-  def reports_pdf
-    @report=Report.where(["imagetalep_id=?",params[:id].to_i]).first
-    @reprt.saave
-    respond_to do |format|
-      format.pdf do
-        render :pdf => "reports",
-               :template => 'radiologists/reports/show.html.slim',
-               :layout => "/layouts/show.pdf.slim",
-               :encoding  => 'utf8'
-      end
-    end
 
-  end
   def new
 
 
@@ -50,8 +38,8 @@ class Radiologists::ReportsController < Radiologists::BaseController
 
   def create
     @report = Report.new(reports_params)
-    @report.imagetalep_id=$imagetalepid
-
+    @report.degerlendiren=current_user.id
+    @report.imagetalep << Imagetalep.find($imagetalepid)
 
     @imagetalep=Imagetalep.find($imagetalepid)
     @imagetalep.durum="Rapor"
@@ -68,7 +56,8 @@ class Radiologists::ReportsController < Radiologists::BaseController
   end
 
   def update
-
+    @report.update(reports_params)
+    redirect_to radiologists_imagetaleps_path
   end
 
   def destroy
@@ -86,7 +75,7 @@ class Radiologists::ReportsController < Radiologists::BaseController
     @imagetalep = Imagetalep.find(params[:id])
   end
   def reports_params
-    params.require(:report).permit(:title, :content, :result, :imagetaleps_id)
+    params.require(:report).permit(:title, :content, :result)
   end
 
 end

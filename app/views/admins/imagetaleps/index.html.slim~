@@ -1,0 +1,33 @@
+
+  h3 Oluşturulan Talep Listeleri
+  br
+  br
+  table.table style=("font-size:9pt; width:90%;")
+    thead
+      tr
+        th Görüntü Türü
+        th Kurum/Bireysel
+        th Tc/Vergi No
+        th  Mail
+        th Durum
+        th
+        th
+        th
+        th
+        th
+
+    tbody
+      -  @imagetaleps.each do |imagetalep|
+        tr
+          td= imagetalep.image_tur
+          td= imagetalep.gonderen_name
+          td= imagetalep.gonderen_tc
+          td= imagetalep.gonderen_mail
+          td= imagetalep.durum
+          td= link_to  imagetalep.picture_url class: 'btn btn-default btn-xs' do
+            i.icon.glyphicon.glyphicon-picture
+          td= link_to  radiologists_imagetalep_path(imagetalep), class: 'btn btn-default btn-xs' do
+            i.icon.glyphicon.glyphicon-eye-open
+          td=link_to "PDF" ,radiologists_report_path(imagetalep.id,:format => 'pdf')
+  br
+

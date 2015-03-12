@@ -28,6 +28,9 @@
             i.icon.glyphicon.glyphicon-picture
           td= link_to  radiologists_imagetalep_path(imagetalep), class: 'btn btn-default btn-xs' do
             i.icon.glyphicon.glyphicon-eye-open
+          -if imagetalep.durum=="Talep"
+            td= link_to  radiologists_imagetalep_kabul_path(imagetalep.id), class: 'btn btn-default btn-xs' do
+              i.icon.glyphicon.glyphicon-ok
           -if imagetalep.durum!="Talep"
             td=link_to radiologists_report_path(imagetalep.id), class: 'btn btn-default btn-xs' do
               i.icon.glyphicon.glyphicon-paste

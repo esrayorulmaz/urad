@@ -1,0 +1,22 @@
+h3 Talep Geçmiş  Rapor Bilgisi
+
+table.table style=("font-size:9pt; width:50%;")
+  thead
+    tr
+      th Degerlendirme Tarih
+      th Degerlendiren
+      th
+      th
+
+
+
+  tbody
+    -  @taleparsivs.each do |arsiv|
+      tr
+        td= arsiv.created_at
+        td= User.where("id=?",arsiv.user_id).first.unvn+". "+User.where("id=?",arsiv.user_id).first.nameSurname
+          i.icon.glyphicon.glyphicon-picture
+        td
+          =link_to arsivshow_admins_report_path(arsiv), class: 'btn btn-default btn-xs' do
+            i.icon.glyphicon.glyphicon-paste
+          td=link_to "PDF" ,arsivshow_admins_report_path(arsiv,:format => 'pdf')

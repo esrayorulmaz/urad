@@ -6,26 +6,26 @@ br
       td style=("font-size:9pt; width:15%;")
         b Hasta Tc No:
       td style=("font-size:9pt; width:20%;")
-        =@report.imagetalep.hastatc
+        =@imagetalep.hastatc
       td style=("font-size:9pt; width:15%;")
         b Rapor Tarihi:
       td style=("font-size:9pt; width:20%;")
-        =@report.created_at
+        =@imagetalep.report.created_at
     tr
       td style=("font-size:9pt; width:15%;")
         b Hasta Adı:
       td style=("font-size:9pt; width:20%;")
-        = @report.imagetalep.hastaname
+        = @imagetalep.hastaname
       td style=("font-size:9pt; width:15%;")
         b Kayıt Tarihi:
       td style=("font-size:9pt; width:20%;")
-        = @report.imagetalep.created_at
+        = @imagetalep.created_at
 
     tr
       td style=("font-size:9pt; width:15%;")
         b Hasta Yaşı:
       td style=("font-size:9pt; width:20%;")
-        = @report.imagetalep.hastayasi
+        = @imagetalep.hastayasi
       td style=("font-size:9pt; width:15%;")
         b Tetkik Bölgesi:
       td style=("font-size:9pt; width:20%;")
@@ -34,11 +34,11 @@ br
       td style=("font-size:9pt; width:15%;")
         b Cinsiyet:
       td style=("font-size:9pt; width:20%;")
-        = @report.imagetalep.hastacinsiyet
+        = @imagetalep.hastacinsiyet
       td style=("font-size:9pt; width:15%;")
         b Modelite:
       td style=("font-size:9pt; width:20%;")
-        = @report.imagetalep.image_tur
+        = @imagetalep.image_tur
 
 
 br
@@ -47,13 +47,12 @@ br
 br
 br
 br
-= @report.content.html_safe
+= @imagetalep.report.content.html_safe
 br
 
   b SONUÇ:
-  =@report.result
+  =@imagetalep.report.result
 br
 p
 h5 Saygılarımla
-=current_user.unvn
-=current_user.nameSurname
+=User.where("id=?", @imagetalep.report.degerlendiren).first.unvn+". "+User.where("id=?", @imagetalep.report.degerlendiren).first.nameSurname

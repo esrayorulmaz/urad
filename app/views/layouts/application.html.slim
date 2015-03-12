@@ -27,7 +27,9 @@ html
           ul.nav.navbar-nav
             - if user_signed_in? && current_user.tur=='admin'
               li
-                =link_to 'Kullanıcı İşlemleri',admins_show_path
+                =link_to 'Rapor Onay', admins_imagetaleps_path(:format => 'Rapor')
+              li
+                =link_to 'Kullanıcı İşlemleri', admins_show_path
               li
                 =link_to 'Kurum Işlemleri',admins_kurum_path
               li

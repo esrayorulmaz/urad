@@ -1,0 +1,72 @@
+
+javascript:
+  $(document).ready(function () {
+    $('input:radio').change(
+            function ()
+            {
+              window.location.replace("/admins/imagetaleps."+$(this).val())
+            }
+    );
+  });
+
+h3 Oluşturulan Talep Listeleri
+
+=form_for [:admins, @imagetalep], validate: true, html: {multipart: true} do |f|
+  table style=("font-size:9pt; width:50%;")
+    tbody
+      tr
+        td
+          = f.radio_button :durum, "Rapor", :checked => @imagetalep.durum== "Rapor" ? true : false
+          = label :durum, 'Onay Bekleyenler'
+      tr
+        td
+          = f.radio_button :durum,"Onay", :checked =>@imagetalep.durum == "Onay" ? true : false
+          = label :durum, 'Onaylananlar'
+      tr
+        td
+          = f.radio_button :durum, "Tum", :checked => @imagetalep.durum == "Tum" ? true : false
+          = label :durum, 'Tum'
+
+
+
+table.table style=("font-size:9pt; width:80%;")
+  thead
+    tr
+      th Görüntü Türü
+      th Kurum/Bireysel
+      th Tc/Vergi No
+      th  Mail
+      th  Durum
+      th
+      th
+      th
+      th
+
+
+  tbody
+    -  @imagetaleps.each do |imagetalep|
+      tr
+        td= imagetalep.image_tur
+        td= imagetalep.gonderen_name
+        td= imagetalep.gonderen_tc
+        td= imagetalep.gonderen_mail
+        td= imagetalep.durum
+
+        td= link_to "PDF", admins_report_path(imagetalep.id, :format => 'pdf')
+        td= link_to  imagetalep.picture_url class: 'btn btn-default btn-xs' do
+          i.icon.glyphicon.glyphicon-picture
+        td
+          = link_to  admins_imagetalep_path(imagetalep), class: 'btn btn-default btn-xs' do
+            i.icon.glyphicon.glyphicon-eye-open
+          =link_to admins_report_path(imagetalep.id), class: 'btn btn-default btn-xs' do
+            i.icon.glyphicon.glyphicon-paste
+        td
+          -if imagetalep.durum=="Rapor"
+            = link_to onayla_admins_imagetalep_path(imagetalep), class: 'btn btn-default btn-xs' do
+              i.icon.glyphicon.glyphicon-ok
+            =link_to reddet_admins_imagetalep_path(imagetalep), class: 'btn btn-default btn-xs' do
+              i.icon.glyphicon.glyphicon-remove
+          -if Taleparsiv.where("imagetalep_id=?",imagetalep.id).count>0
+            =link_to gecmis_admins_imagetalep_path(imagetalep), class: 'btn btn-default btn-xs' do
+              i.icon.glyphicon.glyphicon-time
+

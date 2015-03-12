@@ -4,9 +4,10 @@ class Instutions::ImagetalepsController <Instutions::BaseController
   respond_to :html
 
   def index
-    @imagetaleps = Imagetalep.where(["gonderen_mail= ?",current_user.email]).all
-
+    @imagetaleps = Imagetalep.where(["gonderen_mail=? and durum!=?",current_user.email,"Onay"]).all
   end
+
+
 
   def show
     respond_with(@imagetalep)

@@ -1,22 +1,8 @@
 class InstutionsController < ApplicationController
 
-  def index
 
-  end
-
-  def egitmeniletisim
-
-  end
-
-  def sinavarsiv
-
-  end
-
-  def sinavdegerlendir
-
-  end
-  def sinavlar
-
+  def raporlar
+    @imagetaleps = Imagetalep.where(["gonderen_mail=? and durum=?",current_user.email,"Onay"]).all
   end
 
 end

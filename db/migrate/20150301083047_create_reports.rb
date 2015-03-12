@@ -5,7 +5,8 @@ class CreateReports < ActiveRecord::Migration
       t.text :content
       t.text :result
       t.integer :imagetalep_id
-
+      t.integer :onaylayan
+      t.integer :degerlendiren
       t.timestamps
     end
   end

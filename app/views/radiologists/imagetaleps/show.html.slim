@@ -54,15 +54,6 @@ b Radyolojik Görüntü:
 br
   = image_tag(@imagetalep.picture.url) if @imagetalep.picture?
 br
-  =form_for [:radiologists,@imagetalep], validate: true, html: {multipart: true} do |f|
-    table style=("font-size:9pt; width:50%;")
     tr
-      -if @imagetalep.durum=="Talep"
-        = f.check_box :durum ,  {}, "Kabul", "Talep"
-        = t("Değerlendirmeye Al")
-      br
       = link_to radiologists_imagetaleps_path, class: 'btn btn-default btn-s' do
         i.icon.glyphicon.glyphicon-circle-arrow-left
-    -if @imagetalep.durum=="Talep"
-      tr
-        = f.submit "Kaydet", class: 'btn btn-default btn-xs'

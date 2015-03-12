@@ -1,0 +1,23 @@
+class Admins::ImagetalepsController <Admins::BaseController
+  before_action :set_imagetalep, only: [:show]
+
+  respond_to :html
+
+  def index
+    @imagetaleps = Imagetalep.where(["durum= ?","Rapor"]).all
+  end
+
+  def show
+    respond_with(@imagetalep)
+  end
+
+
+  private
+    def set_imagetalep
+      @imagetalep = Imagetalep.find(params[:id])
+    end
+
+    def imagetalep_params
+      params.require(:imagetalep).permit(:gonderen_tc, :gonderen_name, :gonderen_mail, :image_tur,:image,:hastatc, :unvan,:hastaname, :hastacinsiyet, :hastayasi,:picture,:user_id)
+    end
+end
