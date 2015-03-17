@@ -27,7 +27,9 @@ Rails.application.routes.draw do
     resources :reports, except: [:destroy]
     resources :imagetaleps, except: [:create, :new,:edit,:update] do
       get :kabul
+      get :reddet
     end
+    get :havuz
     resources :dashboard, only: :index
 
   end

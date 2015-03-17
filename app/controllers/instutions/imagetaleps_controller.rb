@@ -15,8 +15,9 @@ class Instutions::ImagetalepsController <Instutions::BaseController
 
   def new
     @imagetalep = Imagetalep.new
-    @user=User.first
     @imagetalep.durum="Talep"
+    @user=User.first
+
   end
 
   def edit
@@ -31,7 +32,9 @@ class Instutions::ImagetalepsController <Instutions::BaseController
       @imagetalep.gonderen_name=current_user.nameSurname
       @imagetalep.gonderen_mail=current_user.email
     end
-    @imagetalep.durum="Talep"
+    if @imagetalep.durum=="Havuz"
+      @imagetalep.user_id=nil
+    end
     if @imagetalep.save
       redirect_to instutions_imagetaleps_path
     else
@@ -67,6 +70,6 @@ class Instutions::ImagetalepsController <Instutions::BaseController
     end
 
     def imagetalep_params
-      params.require(:imagetalep).permit(:gonderen_tc, :gonderen_name, :gonderen_mail, :image_tur,:image,:hastatc, :unvan,:hastaname, :hastacinsiyet, :hastayasi,:picture,:user_id)
+      params.require(:imagetalep).permit(:gonderen_tc, :gonderen_name, :gonderen_mail, :image_tur,:image,:hastatc, :unvan,:hastaname, :hastacinsiyet, :hastayasi,:picture,:user_id,:durum)
     end
 end

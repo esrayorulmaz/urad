@@ -1,5 +1,5 @@
 class Admins::ImagetalepsController <Admins::BaseController
-  before_action :set_imagetalep, only: [:show,:gecmis]
+  before_action :set_imagetalep, only: [:show,:gecmis,:update]
 
   respond_to :html
 
@@ -62,9 +62,14 @@ class Admins::ImagetalepsController <Admins::BaseController
 
 
       @imagetalep.report_id=nil
-      @id=params.require(:imagetalep).permit(:user_id)
-      @imagetalep.user_id= @id[:user_id]
-      @imagetalep.durum="Talep"
+      @id=params.require(:imagetalep).permit(:user_id,:durum)
+      if(@id[:durum]=="0")
+        @imagetalep.user_id= @id[:user_id]
+        @imagetalep.durum="Talep"
+      elsif(@id[:durum]=="1")
+        @imagetalep.user_id=nil
+        @imagetalep.durum="Havuz"
+      end
       @imagetalep.save
 
     redirect_to admins_imagetaleps_path(:format => 'Rapor')
@@ -75,6 +80,6 @@ class Admins::ImagetalepsController <Admins::BaseController
       @imagetalep = Imagetalep.find(params[:id])
     end
   def imagetalep_params
-    params.require(:imagetalep).permit(:user_id)
+    params.require(:imagetalep).permit(:user_id,:durum)
   end
 end

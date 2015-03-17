@@ -31,10 +31,12 @@
           -if imagetalep.durum=="Talep"
             td= link_to  radiologists_imagetalep_kabul_path(imagetalep.id), class: 'btn btn-default btn-xs' do
               i.icon.glyphicon.glyphicon-ok
+            td =link_to radiologists_imagetalep_reddet_path(imagetalep.id), class: 'btn btn-default btn-xs' do
+              i.icon.glyphicon.glyphicon-remove
           -if imagetalep.durum!="Talep"
             td=link_to radiologists_report_path(imagetalep.id), class: 'btn btn-default btn-xs' do
               i.icon.glyphicon.glyphicon-paste
-          -if imagetalep.durum=="Rapor"
+          -if imagetalep.durum=="Rapor" || imagetalep.durum=="Onay"
             td=link_to "PDF" ,radiologists_report_path(imagetalep.id,:format => 'pdf')
           -else
             td

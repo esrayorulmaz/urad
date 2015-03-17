@@ -1,4 +1,17 @@
+javascript:
 
+  $(document).ready(function () {
+    $(':checkbox').change(function () {
+      if ($(this).prop('checked'))
+      { document.getElementById('rad').style.display = 'none';
+        document.getElementById('durum').setAttribute('value','Havuz');
+       }
+      else
+      { document.getElementById('rad').style.display = '';
+        document.getElementById('durum').setAttribute('value','Talep');
+      }
+    });
+  });
 
 = simple_form_for [:instutions,@imagetalep] ,validate: true, html: { multipart: true } do |f|
 
@@ -18,11 +31,18 @@
         = f.select :unvan,{"Prof." => "Prof.", "Doç." => "Doç.", "Yrd.Doç" => "Yrd.Doç", "Uzm.Dr" => "Uzm.Dr","Uzman"=>"Uzman"},{},
                    :id => 'unvan_select'
     tr
-      .field
       td
         = f.label "Radyoloji Uzmanı"
       td
+        = f.check_box :durum, :as => :checkbox, checked: false
+        = f.label "Havuza Gönder"
+    tr
+      .field
+      td
+
+      td style="display:'';" id="rad"
         = f.select :user_id, options_for_select(User.where( tur: 'radiologist').all.map{ |u| [u.nameSurname,u.id] })
+
     tr
       .field
       td
@@ -46,7 +66,7 @@
       td
         = f.label "Durum"
       td
-        = f.text_field :durum, label_class: "custom-class", disabled: true
+        = f.text_field :durum, :id=>"durum",:readonly => true
 
     tr
       .dropdown-menu

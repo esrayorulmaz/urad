@@ -1,4 +1,15 @@
+javascript:
 
+  $(document).ready(function () {
+    $(':checkbox').change(function () {
+      if ($(this).prop('checked'))
+      { document.getElementById('rad').style.display = 'none';
+      }
+      else
+      { document.getElementById('rad').style.display = '';
+      }
+    });
+  });
 
 = simple_form_for [:admins,@imagetalep] ,validate: true, html: { multipart: true } do |f|
 
@@ -8,8 +19,7 @@
       td
         = f.label "Uzmanlık Alanı"
       td
-        = f.select :image_tur, {"MR" => "MR", "BT" => "BT", "Röntgen" => "Röntgen", "US" => "US","PET"=>"PET","SPECT" => "SPECT"},{},
-                   :id => 'uzmnlk_select'
+        = f.text_field :image_tur, :readonly=>"true"
     tr
       .dropdown-menu
       td
@@ -18,11 +28,17 @@
         = f.select :unvan,{"Prof." => "Prof.", "Doç." => "Doç.", "Yrd.Doç" => "Yrd.Doç", "Uzm.Dr" => "Uzm.Dr","Uzman"=>"Uzman"},{},
                    :id => 'unvan_select'
     tr
-      .field
       td
         = f.label "Radyoloji Uzmanı"
       td
-        = f.select :user_id, options_for_select(User.where( tur: 'radiologist').all.map{ |u| [u.nameSurname,u.id] })
+        = f.check_box :durum, :as => :checkbox, checked: false
+        = f.label "Havuza Gönder"
+    tr
+      .field
+      td
+
+      td style="display:'';" id="rad"
+        = f.select :user_id, options_for_select(User.where( "tur=? and unvn=? and uzmnlk=?" ,'radiologist', @imagetalep.unvan,@imagetalep.image_tur ).all.map{ |u| [u.nameSurname,u.id] })
 
 
   br

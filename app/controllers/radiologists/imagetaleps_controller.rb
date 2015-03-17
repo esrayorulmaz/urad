@@ -16,7 +16,16 @@ class Radiologists::ImagetalepsController <Radiologists::BaseController
 
   def kabul
     @imagetalep = Imagetalep.find(params[:imagetalep_id])
+    @imagetalep.user_id=current_user.id
     @imagetalep.durum="Kabul"
+    @imagetalep.save
+
+    redirect_to :back
+  end
+  def reddet
+    @imagetalep = Imagetalep.find(params[:imagetalep_id])
+    @imagetalep.durum="Havuz"
+    @imagetalep.user_id=nil
     @imagetalep.save
 
     redirect_to :back

@@ -30,9 +30,10 @@ table style=("font-size:9pt; width:35%;")
       = @imagetalep.unvan
   tr
     td
-      b Unvan:
+      b Değerlendiren Uzman:
     td
-      = @imagetalep.user.nameSurname
+      -if @imagetalep.user!=nil
+        = @imagetalep.user.nameSurname
   tr
     td
       b Hasta Tc Kimlik No:
