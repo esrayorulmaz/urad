@@ -17,7 +17,7 @@ gem 'sdoc', '~> 0.4.0'
 
 gem 'spring',        group: :development
 
-
+gem 'simple_form'
 gem 'devise', '~> 3.4.1'
 gem 'bootstrap-sass', '~> 3.3.3'
 
@@ -35,3 +35,9 @@ gem "bullet", :group => "development"
 gem 'annotate', '~> 2.6.5'
 gem 'rails_config'
 gem 'carrierwave'
+gem 'wicked_pdf', github: 'mileszs/wicked_pdf'
+gem 'wkhtmltopdf-binary'
+gem 'podlove-web-player-rails'
+
+
+

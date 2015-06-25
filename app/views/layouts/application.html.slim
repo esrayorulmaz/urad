@@ -37,6 +37,8 @@ html
               li
                 =link_to 'Eğitmen Işlemleri',admins_egitmen_path
               li
+                =link_to 'Ücretlendirme Işlemleri', admins_ucrets_path
+              li
                 =link_to 'Gelen Mesajlar',iletisims_path
             - if user_signed_in? && current_user.tur=='teacher'
               li
@@ -81,9 +83,12 @@ html
               li
                 =link_to 'Iletişim',new_iletisim_path
               li
+            - if user_signed_in?&& current_user.tur=='sekreter'
+              li
+                =link_to 'Ses Raporları ',sekreters_imagetaleps_path
             - if user_signed_in?
               li
-                =link_to "Çıkış", destroy_user_session_path, :method => :delete
+                =link_to "Çıkış", destroy_user_session_path, :method => :get
             - else
 
               li
@@ -95,7 +100,7 @@ html
 
 
 
-    .container.theme-showcase role="main" 
+    .container.theme-showcase role="main"
       ol.breadcrumb
         = render_breadcrumbs :separator => " / "
       = yield

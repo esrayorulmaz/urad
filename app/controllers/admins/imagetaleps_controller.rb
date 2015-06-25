@@ -14,6 +14,7 @@ class Admins::ImagetalepsController <Admins::BaseController
     elsif (params[:format]=="Tum")
       @imagetaleps = Imagetalep.where(["durum= ? or durum=?","Onay","Rapor"]).all
       @imagetalep.durum="Tum"
+
     end
 
   end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150312010134) do
+ActiveRecord::Schema.define(version: 20150623105526) do
 
   create_table "iletisims", force: true do |t|
     t.string   "title"
@@ -37,6 +37,10 @@ ActiveRecord::Schema.define(version: 20150312010134) do
     t.string   "picture"
     t.integer  "user_id"
     t.integer  "report_id"
+    t.string   "audiofile"
+    t.string   "sekreter_id"
+    t.string   "rapor_suresi"
+    t.float    "rapor_ucreti",  limit: 24
   end
 
   create_table "reports", force: true do |t|
@@ -52,7 +56,15 @@ ActiveRecord::Schema.define(version: 20150312010134) do
   create_table "taleparsivs", force: true do |t|
     t.integer  "rapor_id"
     t.integer  "user_id"
-    t.integer  "imagetalep_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "imagetalep_id", null: false
+  end
+
+  create_table "ucrets", force: true do |t|
+    t.string   "atur"
+    t.string   "tur"
+    t.float    "fiyat",      limit: 24
     t.datetime "created_at"
     t.datetime "updated_at"
   end

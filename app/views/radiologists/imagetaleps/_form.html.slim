@@ -1,0 +1,43 @@
+javascript:
+  function Secim()
+  {
+    var check = document.getElementById("slist");
+    if(check.checked==true)
+    { document.getElementById('sek').style.display = '';
+    }else{
+      document.getElementById('sek').style.display = 'none';
+
+    }
+  }
+
+= simple_form_for [:radiologists,@imagetalep] ,validate: true, html: { multipart: true } do |f|
+
+  table style=("font-size:9pt; width:70%;")
+    tr
+      td
+
+        = f.check_box "secim", :as => :checkbox, checked: false,:id=>'slist',:onchange=>"Secim()"
+        = f.label "Sekretere Gönder"
+
+      td style="display: none;" id="sek"
+        = f.select :sekreter_id, options_for_select(User.where(tur: 'sekreter').all.map { |u| [u.nameSurname, u.id] })
+    tr
+
+      td
+        = f.label "Ses Dosyası"
+      td
+        = f.file_field :audiofile
+    tr
+
+
+  br
+    b Radyolojik Görüntü:
+    br
+      = image_tag(@imagetalep.picture_url) if @imagetalep.picture?
+    br
+  br
+  .actions
+    = f.submit 'Kaydet',class: 'btn btn-default btn-xs'
+
+
+

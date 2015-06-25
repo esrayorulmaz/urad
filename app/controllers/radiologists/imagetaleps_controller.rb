@@ -5,13 +5,27 @@ class Radiologists::ImagetalepsController <Radiologists::BaseController
 
   def index
     @imagetaleps = Imagetalep.where(["user_id= ?",current_user.id]).all
+
   end
 
   def show
     respond_with(@imagetalep)
   end
+  def edit
+    respond_with(@imagetalep)
 
-
+  end
+  def update
+    @talep =params[:imagetalep]
+    @imagetalep=Imagetalep.find(params[:id])
+    @imagetalep.audiofile=@talep[:audiofile]
+    if(@talep[:secim]=="1")
+        @imagetalep.sekreter_id=@talep[:sekreter_id]
+        @imagetalep.durum="Sekretarya"
+    end
+    @imagetalep.save
+    redirect_to radiologists_imagetaleps_path
+  end
 
 
   def kabul
@@ -28,8 +42,15 @@ class Radiologists::ImagetalepsController <Radiologists::BaseController
     @imagetalep.user_id=nil
     @imagetalep.save
 
-    redirect_to :back
+    redirect_to radiologists_imagetaleps_path
   end
+  def TaslakOnayla
+      @imagetalep = Imagetalep.find(params[:imagetalep_id])
+      @imagetalep.durum="Rapor"
+      @imagetalep.save
+
+      redirect_to :back
+    end
 
   def destroy
     @imagetalep.destroy
@@ -53,6 +74,6 @@ class Radiologists::ImagetalepsController <Radiologists::BaseController
     end
 
     def imagetalep_params
-      params.require(:imagetalep).permit(:gonderen_tc, :gonderen_name, :gonderen_mail, :image_tur,:image,:hastatc, :unvan,:hastaname, :hastacinsiyet, :hastayasi,:picture,:user_id)
+      params.require(:imagetalep).permit(:gonderen_tc, :gonderen_name, :gonderen_mail, :image_tur,:image,:hastatc, :unvan,:hastaname, :hastacinsiyet, :hastayasi,:picture,:user_id,:audiofile,:sekreter_id)
     end
 end

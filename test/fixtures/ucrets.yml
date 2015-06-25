@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  atur: MyString
+  tur: MyString
+  fiyat: 1.5
+
+two:
+  atur: MyString
+  tur: MyString
+  fiyat: 1.5

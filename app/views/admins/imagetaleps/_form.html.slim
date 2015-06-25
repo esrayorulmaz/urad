@@ -1,15 +1,13 @@
 javascript:
 
-  $(document).ready(function () {
-    $(':checkbox').change(function () {
-      if ($(this).prop('checked'))
-      { document.getElementById('rad').style.display = 'none';
-      }
-      else
-      { document.getElementById('rad').style.display = '';
-      }
-    });
-  });
+  function Secim() {
+    var check = document.getElementById("havuz");
+    if (check.checked == true) {
+      document.getElementById('rad').style.display = 'none';
+    } else {
+      document.getElementById('rad').style.display = '';
+    }
+  }
 
 = simple_form_for [:admins,@imagetalep] ,validate: true, html: { multipart: true } do |f|
 
@@ -31,7 +29,7 @@ javascript:
       td
         = f.label "Radyoloji Uzmanı"
       td
-        = f.check_box :durum, :as => :checkbox, checked: false
+        = f.check_box :durum,:id=>'havuz', :as => :checkbox, checked: false, :onchange=>"Secim()"
         = f.label "Havuza Gönder"
     tr
       .field

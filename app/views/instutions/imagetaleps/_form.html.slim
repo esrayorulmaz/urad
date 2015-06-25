@@ -1,79 +1,125 @@
 javascript:
+  function Secim() {
+    var check = document.getElementById("havuz");
+    if (check.checked == true) {
+      document.getElementById('rad').style.display = 'none';
+      document.getElementById('durum').setAttribute('value', 'Havuz');
+    } else {
+      document.getElementById('rad').style.display = '';
+      document.getElementById('durum').setAttribute('value', 'Talep');
 
-  $(document).ready(function () {
-    $(':checkbox').change(function () {
-      if ($(this).prop('checked'))
-      { document.getElementById('rad').style.display = 'none';
-        document.getElementById('durum').setAttribute('value','Havuz');
-       }
-      else
-      { document.getElementById('rad').style.display = '';
-        document.getElementById('durum').setAttribute('value','Talep');
-      }
-    });
+    }
+  }
+  function SureUcretAktar()
+  {
+    var select = document.getElementById("ucret_select");
+    document.getElementById("zamanucret").setAttribute("Value",select.options[select.selectedIndex].value);
+    ToplamUcret();
+   }
+  function UnvanUcretAktar()
+  {
+    var select = document.getElementById("unvan_select");
+    document.getElementById("unvanucret").setAttribute("Value", select.options[select.selectedIndex].value);
+    ToplamUcret();
+  }
+  function UzmanUcretAktar() {
+    var select = document.getElementById("uzmnlk_select");
+    document.getElementById("uzmanucret").setAttribute("Value", select.options[select.selectedIndex].value);
+    ToplamUcret();
+  }
+
+  function ToplamUcret()
+  {
+    var uselect = document.getElementById("ucret_select");
+    var unselect = document.getElementById("unvan_select");
+    var uzselect = document.getElementById("uzmnlk_select");
+    var genel = document.getElementById("genelucret").getAttribute("Value");
+    var sonuc = parseFloat(genel)+parseFloat(uselect.options[uselect.selectedIndex].value) + parseFloat(unselect.options[unselect.selectedIndex].value) + parseFloat(uzselect.options[uzselect.selectedIndex].value)
+    document.getElementById("raporUcreti").setAttribute("Value", parseFloat(sonuc));
+  }
+
+  $(document).on('ready page:load', function () {
+     ToplamUcret();
   });
+
+
+
 
 = simple_form_for [:instutions,@imagetalep] ,validate: true, html: { multipart: true } do |f|
 
   table style=("font-size:9pt; width:70%;")
     tr
-      .dropdown-menu
       td
         = f.label "Uzmanlık Alanı"
       td
-        = f.select :image_tur, {"MR" => "MR", "BT" => "BT", "Röntgen" => "Röntgen", "US" => "US","PET"=>"PET","SPECT" => "SPECT"},{},
-                   :id => 'uzmnlk_select'
+        = f.select :image_tur, options_for_select(Ucret.where( atur: 'Göruntu Türü').all.map{ |u| [u.tur,u.fiyat] }),{},
+                   :id => 'uzmnlk_select',:onchange=>"UzmanUcretAktar()",:style=>("width:55%;")
+      td
+        = f.text_field :uzman_ucreti, :id=>"uzmanucret",:readonly => true,:value=>Ucret.where(atur:'Göruntu Türü').first.fiyat,:style=>("width:15%;"),:onkeydown=>"ToplamUcret()"
     tr
-      .dropdown-menu
       td
         = f.label "Radyoloji Uzman Unvanı"
       td
-        = f.select :unvan,{"Prof." => "Prof.", "Doç." => "Doç.", "Yrd.Doç" => "Yrd.Doç", "Uzm.Dr" => "Uzm.Dr","Uzman"=>"Uzman"},{},
-                   :id => 'unvan_select'
+        = f.select :unvan, options_for_select(Ucret.where( atur: 'unvan').all.map{ |u| [u.tur,u.fiyat] }),{},
+                   :id => 'unvan_select',:onchange=>"UnvanUcretAktar()",:style=>("width:55%;")
+      td
+        = f.text_field :unvan_ucreti, :id=>"unvanucret",:readonly => true,:value=>Ucret.where(atur:'unvan').first.fiyat,:style=>("width:15%;")
+    tr
+      td
+        = f.label "Raporlama Süresi"
+      td
+        = f.select :rapor_suresi, options_for_select(Ucret.where( atur: 'zaman').all.map{ |u| [u.tur,u.fiyat] }),{},
+                   :id => 'ucret_select',:onchange=>"SureUcretAktar()",:style=>("width:55%;")
+      td
+        = f.text_field :zaman_ucreti, :id=>"zamanucret",:readonly => true,:value=>Ucret.where(atur:'zaman').first.fiyat,:style=>("width:15%;")
     tr
       td
         = f.label "Radyoloji Uzmanı"
       td
-        = f.check_box :durum, :as => :checkbox, checked: false
+        = f.check_box :durum,:id=>'havuz', :as => :checkbox, checked: false, :onchange=>"Secim()"
         = f.label "Havuza Gönder"
     tr
-      .field
       td
 
       td style="display:'';" id="rad"
-        = f.select :user_id, options_for_select(User.where( tur: 'radiologist').all.map{ |u| [u.nameSurname,u.id] })
+        = f.select :user_id, options_for_select(User.where( tur: 'radiologist').all.map{ |u| [u.nameSurname,u.id] }),{},:style=>("width:55%;")
 
     tr
-      .field
       td
         = f.label "Hasta - Tc Kimlik No:"
       td
         = f.text_field :hastatc, autocomplete: "off", class: "input-group input-group-sm"
     tr
-      .field
       td
         = f.label "Hasta - Ad- Soyadı"
       td
         = f.text_field :hastaname, autocomplete: "off", class: "input-group input-group-sm"
     tr
-      .field
       td
         = f.label "Hasta - Yasi"
       td
         = f.text_field :hastayasi, autocomplete: "off", class: "input-group input-group-sm"
     tr
-      .field
       td
         = f.label "Durum"
       td
         = f.text_field :durum, :id=>"durum",:readonly => true
 
     tr
-      .dropdown-menu
       td
         = f.label "Hasta - Cinsiyeti:"
       td
         = f.select(:hastacinsiyet, options_for_select({"Erkek" => "E", "Kadın" => "K"}))
+    tr
+      td
+        = f.label "Genel Ücret:"
+      td
+        = f.text_field :rapor_ucreti, :id => "genelucret", :readonly => true, :value => Ucret.where( atur: 'Genel').first.fiyat
+    tr
+      td
+        = f.label "Toplam Ücret:"
+      td
+        = f.text_field :rapor_ucreti, :id=>"raporUcreti",:readonly => true,:value=>0
     tr
       td
         = f.label "Görüntü Yükle:"
@@ -85,30 +131,9 @@ javascript:
   br
    = image_tag(@imagetalep.picture_url) if @imagetalep.picture?
   br
+
+  br
   .actions
     = f.submit 'Kaydet',class: 'btn btn-default btn-xs'
 
-
-//javascript:
-  $(document).ready(function () {
-    $('#uzmnlk_select').change(function () {
-      $.ajax({
-        url: "#{instutions_imagetalep_update_radyologlist_path}",
-        data: {
-          uzmnlk: $('#uzmnlk_select').val()
-        },
-        dataType: "script"
-      });
-    });
-    $('#unvan_select').change(function () {
-      $.ajax({
-        url: "#{instutions_imagetalep_update_radyologlist_path}",
-        data: {
-          unvan: $('#unvan_select').val()
-          uzmnlk: $('#uzmnlk_select').val()
-        },
-        dataType: "script"
-      });
-    });
-  });
 

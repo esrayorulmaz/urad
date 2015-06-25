@@ -1,0 +1,31 @@
+
+  h3 Rapor Listesi
+  br
+  br
+  table.table style=("font-size:9pt; width:110%;")
+    thead
+      tr
+        th Tarih
+        th Konu
+        th Sonuc
+        th
+
+
+    tbody
+      - @reports.each do |report|
+        tr
+          td= report.created_at
+          td= report.title
+          td= report.content
+          td= report.result
+          td
+            = link_to sekreters_report_path(report), class: 'btn btn-default btn-xs' do
+              i.icon.glyphicon.glyphicon-eye-open
+            = link_to  edit_sekreters_report_path(report), class: 'btn btn-default btn-xs' do
+              i.icon.glyphicon.glyphicon-pencil
+
+  br
+
+  = link_to 'Rapor Oluştur', new_sekreters_report_path,class: 'btn btn-success btn-xs'
+
+

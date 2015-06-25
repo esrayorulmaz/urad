@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 gem "slim"
 gem "slim-rails"
-gem 'bootstrap-wysihtml5-rails','~> 0.3.3.2'
+gem 'bootstrap-wysihtml5-rails'
 gem 'rails', '4.1.9'
 gem 'mysql2'
 gem 'sass-rails', '~> 4.0.3'
@@ -37,3 +37,7 @@ gem 'rails_config'
 gem 'carrierwave'
 gem 'wicked_pdf', github: 'mileszs/wicked_pdf'
 gem 'wkhtmltopdf-binary'
+
+
+
+

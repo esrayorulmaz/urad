@@ -1,0 +1,25 @@
+h3 Ucret Tablosu
+
+table.table style=("font-size:9pt; width:80%;")
+  thead
+    tr
+      th Ucret Alanı
+      th Ucret Şekli
+      th Fiyatı
+
+
+  tbody
+    -  @ucrets.each do |ucret|
+      tr
+        td= ucret.atur
+        td= ucret.tur
+        td= ucret.fiyat
+        td= link_to edit_admins_ucret_path(ucret), class: 'btn btn-default btn-xs' do
+          i.icon.glyphicon.glyphicon-pencil
+        td= link_to admins_ucret_path(ucret), :method => :delete, :data => {:confirm => 'Ücret Silinecek?'}, class: 'btn btn-default btn-xs' do
+          i.glyphicon.glyphicon-trash
+
+
+br
+
+= link_to 'Ücret Oluştur', new_admins_ucret_path,class: 'btn btn-success btn-xs'

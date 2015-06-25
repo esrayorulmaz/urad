@@ -36,9 +36,11 @@ html
             li
               =link_to 'Eğitmen Işlemleri', admins_egitmen_path
             li
+              =link_to 'Ücretlendirme Işlemleri', admins_ucrets_path
+            li
               =link_to 'Gelen Mesajlar', iletisims_path
             li
-              =link_to "Çıkış", destroy_user_session_path, :method => :delete
+              =link_to "Çıkış", destroy_user_session_path, :method => :get
 
 
 

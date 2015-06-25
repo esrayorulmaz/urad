@@ -1,0 +1,89 @@
+
+javascript:
+  function aud_play_pause(id) {
+    var audiolist = document.getElementsByTagName('audio');
+    for (var i = 0; i < audiolist.length; i++) {
+      var sid = audiolist[i].id.replace("ses", "");
+      if (sid != id) {
+        audiolist[i].pause();
+
+        var btnplay = document.getElementById("play" + sid);
+        var btnpause = document.getElementById("pause" + sid);
+        btnplay.style.display = '';
+        btnpause.style.display = 'none';
+      }
+    }
+
+
+    var myAudio = document.getElementById("ses" + id);
+    var btnplay = document.getElementById("play" + id);
+    var btnpause = document.getElementById("pause" + id);
+
+    if (myAudio.paused) {
+      myAudio.play();
+      btnplay.style.display = 'none';
+      btnpause.style.display = '';
+    } else {
+      myAudio.pause();
+      btnplay.style.display = '';
+      btnpause.style.display = 'none';
+    }
+  }
+  function aud_reload(id) {
+    var myAudio = document.getElementById("ses" + id);
+    myAudio.load();
+    myAudio.play();
+    var btnplay = document.getElementById("play" + id);
+    var btnpause = document.getElementById("pause" + id);
+    btnplay.style.display = 'none';
+    btnpause.style.display = '';
+  }
+  function aud_forward(id) {
+    var myAudio = document.getElementById("ses" + id);
+    myAudio.currentTime += 30.0;
+  }
+  function aud_backward(id) {
+    var myAudio = document.getElementById("ses" + id);
+    myAudio.currentTime -= 30.0;
+
+  }
+
+
+h3 Rapor Ses Dosyaları
+br
+br
+table.table style=("font-size:9pt; width:80%;")
+  thead
+    tr
+      th Görüntü Türü
+      th Gönderen Radyolog
+      th Durum
+      th Görüntü
+      th
+      th
+      th
+
+
+
+  tbody
+    -  @imagetaleps.each do |imagetalep|
+      tr
+        td= imagetalep.image_tur
+        td= User.where(["id=?", imagetalep.user_id]).first.nameSurname
+        td= imagetalep.durum
+        td= link_to  imagetalep.picture_url class: 'btn btn-default btn-xs' do
+          i.icon.glyphicon.glyphicon-picture
+        -if imagetalep.durum!="Talep"
+          td=link_to sekreters_report_path(imagetalep.id), class: 'btn btn-default btn-xs' do
+            i.icon.glyphicon.glyphicon-paste
+        - if imagetalep.audiofile.file!=nil
+          td
+            audio id="ses#{imagetalep.id}" src=imagetalep.audiofile
+            button onclick="aud_backward(#{imagetalep.id})" type="button"  class="glyphicon glyphicon-backward"
+            button onclick="aud_play_pause(#{imagetalep.id})" type="button" id="play#{imagetalep.id}" class="glyphicon glyphicon-play"
+            button onclick="aud_play_pause(#{imagetalep.id})" style="display: none;" type="button" id="pause#{imagetalep.id}" class="glyphicon glyphicon-pause"
+            button onclick="aud_reload(#{imagetalep.id})" type="button"  class="glyphicon glyphicon-repeat"
+            button onclick="aud_forward(#{imagetalep.id})" type="button"  class="glyphicon glyphicon-forward"
+        -if imagetalep.durum=="Rapor"|| imagetalep.durum=="Onay"
+          td=link_to "PDF", sekreters_report_path(imagetalep.id, :format => 'pdf')
+

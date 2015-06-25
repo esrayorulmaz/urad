@@ -3,9 +3,10 @@ Rails.application.routes.draw do
 
 
   devise_for :users, :path_names => { :sign_up => "register" },:controllers => {:registrations => "registrations",:sessions=>"sessions"}
+
   resources :admins , only: [:unblock,:block,:usershow] do
-    post :block, on: :member
-    post :unblock, on: :member
+    get :block, on: :member
+    get :unblock, on: :member
     get :usershow, on: :member
   end
 
@@ -14,6 +15,7 @@ Rails.application.routes.draw do
     resources :reports, only: [ :show,:arsivshow] do
       get :arsivshow, on: :member
     end
+    resources :ucrets,only: [:create,:new,:edit,:update,:index,:destroy]
     resources :imagetaleps, only: [:show,:edit,:update, :index,:onayla,:reddet,:gecmis] do
       get :onayla, on: :member
       get :reddet, on: :member
@@ -25,15 +27,23 @@ Rails.application.routes.draw do
 
   namespace :radiologists do
     resources :reports, except: [:destroy]
-    resources :imagetaleps, except: [:create, :new,:edit,:update] do
+
+    resources :imagetaleps, except: [:create, :new] do
       get :kabul
       get :reddet
+      get :TaslakOnayla
     end
     get :havuz
     resources :dashboard, only: :index
 
   end
 
+  namespace :sekreters do
+    resources :reports, except: [:destroy]
+    resources :imagetaleps, only: [:index]
+    resources :dashboard, only: :index
+
+  end
 
   namespace :instutions do
     resources :reports, only: :show

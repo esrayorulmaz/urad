@@ -1,0 +1,101 @@
+javascript:
+  function Secim()
+  {
+    var select = document.getElementById("atur_select");
+    var zaman =document.getElementById('zaman');
+    var ucrettur =document.getElementById('uzmnlk');
+    var ucretunvan =document.getElementById('unvan');
+    var turbilgisi = document.getElementById('turaktar');
+    if(select.selectedIndex==1)
+    {
+      ucretunvan.style.display = '';
+      ucrettur.style.display = 'none';
+      zaman.style.display = 'none';
+      document.getElementById('turaktar').style.display='none';
+      turbilgisi.setAttribute("Value",ucretunvan.options[ucretunvan.selectedIndex].value);
+    }else if (select.selectedIndex==2)
+    {
+      ucretunvan.style.display = 'none';
+      ucrettur.style.display = '';
+      zaman.style.display = 'none';
+      document.getElementById('turaktar').style.display='none';
+      turbilgisi.setAttribute("Value",ucrettur.options[ucrettur.selectedIndex].value);
+    }
+    else if(select.selectIndex==0)
+    {
+      ucretunvan.style.display = 'none';
+      ucrettur.style.display='none';
+      zaman.style.display='';
+      document.getElementById('turaktar').style.display='none';
+      turbilgisi.setAttribute("Value",zaman.options[zaman.selectedIndex].value);
+    }
+    else
+    {
+      ucretunvan.style.display = 'none';
+      ucrettur.style.display = 'none';
+      zaman.style.display = 'none';
+      document.getElementById('turaktar').style.display='';
+      turbilgisi.setAttribute("Value","Genel");
+
+    }
+  }
+  function isNumberKey(evt) {
+    var charCode = (evt.which) ? evt.which : event.keyCode
+    if (charCode > 31 && (charCode < 48 || charCode > 57)&& charCode != 46) {
+      alert("Lütfen Sayısal Değer Girin!");
+      return false;
+    }
+
+    return true;
+  }
+  function SecimTuruAktar()
+  {
+
+    var select = document.getElementById("atur_select");
+    var zaman = document.getElementById('zaman');
+    var ucrettur = document.getElementById('uzmnlk');
+    var ucretunvan = document.getElementById('unvan');
+    var turbilgisi = document.getElementById('turaktar');
+    if (select.selectedIndex == 1) {
+      turbilgisi.setAttribute("Value",ucretunvan.options[ucretunvan.selectedIndex].value);
+    } else if (select.selectedIndex == 2) {
+      turbilgisi.setAttribute("Value",ucrettur.options[ucrettur.selectedIndex].value);
+    }
+    else if (select.selectedIndex == 0) {
+      turbilgisi.setAttribute("Value",zaman.options[zaman.selectedIndex].value);
+    }
+    }
+
+
+= simple_form_for [:admins,@ucret] ,validate: true, html: { multipart: true } do |f|
+
+  table style=("font-size:9pt; width:70%;")
+    tr
+      .dropdown-menu
+      td
+        = f.label "Ucret Alanı"
+      td
+        = f.select :atur, {"zaman" => "zaman", "unvan" => "unvan", "Görüntü Türü" => "Göruntu Türü","Genel"=>"Genel"},{},
+                   :id => 'atur_select',:onchange=>"Secim()"
+    tr
+      td
+        = f.label "Ucret Türü"
+      td
+
+        = f.select :tur, {"MR" => "MR", "BT" => "BT", "Röntgen" => "Röntgen", "US" => "US", "PET" => "PET", "SPECT" => "SPECT"}, {},
+                   :id => 'uzmnlk', :style=>"display: none;",:onchange=>"SecimTuruAktar()"
+        = f.select :tur, {"Prof." => "Prof.", "Doç." => "Doç.", "Yrd.Doç" => "Yrd.Doç", "Uzm.Dr" => "Uzm.Dr", "Uzman" => "Uzman"}, {},
+                   :id => 'unvan' ,:style=>"display: none;" ,:onchange=>"SecimTuruAktar()"
+        = f.select :tur, {"12 saat" => "12s", "24 saat" => "24s", "1 hafta" => "1h", "2 hafta" => "2h", "3 hafta" => "3h", "1 ay" => "1a"}, {},
+                   :id => 'zaman',:onchange=>"SecimTuruAktar()"
+        = f.text_field :tur  ,:id=>'turaktar',:value=>"12s",:style=>"display: none;",:readonly => true
+    tr
+      .field
+      td
+        = f.label "Ucret"
+      td
+        = f.text_field :fiyat, autocomplete: "off", class: "input-group input-group-sm", :onkeypress=>"return isNumberKey(event)", :runat =>"server"
+
+  br
+    .actions
+      = f.submit 'Kaydet',class: 'btn btn-default btn-xs'

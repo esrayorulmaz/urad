@@ -17,8 +17,9 @@
 //= require bootstrap-sprockets
 //= require bootstrap-wysihtml5
 
-//= require_tree .
 
+//= require_tree .
+//= require bootstrap-wysihtml5
 
 $(document).ready(function(){
     $('.wysihtml5').each(function(i, elem) {
