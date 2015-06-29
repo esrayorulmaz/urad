@@ -7,3 +7,13 @@ development:
   username: root
   password: 1q2w3e
   socket: /var/run/mysqld/mysqld.sock
+
+production:
+  adapter: mysql2
+  encoding: utf8
+  reconnect: false
+  database: db_urad
+  pool: 5
+  username: root
+  password: 1q2w3e
+  socket: /var/run/mysqld/mysqld.sock

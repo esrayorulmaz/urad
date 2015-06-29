@@ -29,7 +29,7 @@ gem 'ransack'
 gem 'jquery-ui-rails'
 gem "breadcrumbs_on_rails"
 gem 'katip'
-gem 'better_errors'
+#gem 'better_errors'
 gem 'binding_of_caller'
 gem "bullet", :group => "development"
 gem 'annotate', '~> 2.6.5'

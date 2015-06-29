@@ -66,7 +66,8 @@ table.table style=("font-size:9pt; width:80%;")
               i.icon.glyphicon.glyphicon-ok
             =link_to reddet_admins_imagetalep_path(imagetalep), class: 'btn btn-default btn-xs' do
               i.icon.glyphicon.glyphicon-remove
-          -if Taleparsiv.where("imagetalep_id=?",imagetalep.id).count>0
+        -if Taleparsiv.where("imagetalep_id=?",imagetalep.id).count>0
+          td
             =link_to gecmis_admins_imagetalep_path(imagetalep), class: 'btn btn-default btn-xs' do
               i.icon.glyphicon.glyphicon-time
 

@@ -21,12 +21,12 @@ class Admins::ImagetalepsController <Admins::BaseController
 
   def gecmis
     @taleparsivs= Taleparsiv.where("imagetalep_id=?",@imagetalep.id).all
-    @imagetalep
   end
 
   def show
     respond_with(@imagetalep)
   end
+
 
   def onayla
     @imagetalep = Imagetalep.find(params[:id])

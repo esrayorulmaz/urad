@@ -11,7 +11,6 @@ class CreateImagetaleps < ActiveRecord::Migration
       t.integer :hastayasi
       t.text :hastacinsiyet
       t.text :durum
-      t.bool  :picture
       t.string  :picture
       t.string  :rapor_suresi
       t.string  :rapor_ucreti

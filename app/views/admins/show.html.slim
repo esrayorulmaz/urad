@@ -23,9 +23,9 @@ table.table style=("font-size:9pt; width:80%;")
         td
           = link_to "Görüntüle",usershow_admin_path(user), method: :get, class: 'btn btn-default btn-xs'
           -if user.aktif==true
-            = link_to 'aktif', block_admin_path(user), class: "btn btn-success btn-xs #{user.aktif ? '' : 'disabled'}", method: :post
+            = link_to 'aktif', block_admin_path(user) ,class: "btn btn-success btn-xs #{user.aktif ? '' : 'disabled'}", method: :post
           -else
-            = link_to 'pasif ', unblock_admin_path(user), class: "btn btn-danger btn-xs #{user.aktif ? 'disabled' : ''}", method: :post
+            = link_to 'pasif ', unblock_admin_path(user),  class: "btn btn-danger btn-xs #{user.aktif ? 'disabled' : ''}", method: :post
           end
 
 

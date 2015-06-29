@@ -5,9 +5,10 @@ Rails.application.routes.draw do
   devise_for :users, :path_names => { :sign_up => "register" },:controllers => {:registrations => "registrations",:sessions=>"sessions"}
 
   resources :admins , only: [:unblock,:block,:usershow] do
-    get :block, on: :member
-    get :unblock, on: :member
+    post :block, on: :member
+    post :unblock, on: :member
     get :usershow, on: :member
+
   end
 
 
@@ -22,7 +23,12 @@ Rails.application.routes.draw do
       get :gecmis, on: :member
     end
     resources :dashboard, only: :index
+    get :kurum_indirim
+    resources :users, only: [:kurum_indirim] do
+      post :kurum_indirim, on: :member
+    end
   end
+ 
 
 
   namespace :radiologists do

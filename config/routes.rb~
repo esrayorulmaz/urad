@@ -1,22 +1,63 @@
 Rails.application.routes.draw do
   resources :iletisims
-  resources :imagetaleps do
-    get :update_radyologlist , :as => 'update_radyologlist'
-    get :updateDurum,  on: :member
-  end
+
 
   devise_for :users, :path_names => { :sign_up => "register" },:controllers => {:registrations => "registrations",:sessions=>"sessions"}
 
-  resources :admins do
+  resources :admins , only: [:unblock,:block,:usershow] do
     post :block, on: :member
     post :unblock, on: :member
     get :usershow, on: :member
+
   end
 
-  namespace :radiologists do
-    resources :imagetaleps, except: [:create, :new,:edit] do
-        get :updateDurum,  on: :member
+
+  namespace :admins do
+    resources :reports, only: [ :show,:arsivshow] do
+      get :arsivshow, on: :member
     end
+    resources :ucrets,only: [:create,:new,:edit,:update,:index,:destroy]
+    resources :imagetaleps, only: [:show,:edit,:update, :index,:onayla,:reddet,:gecmis] do
+      get :onayla, on: :member
+      get :reddet, on: :member
+      get :gecmis, on: :member
+    end
+    resources :dashboard, only: :index
+    get :kurum_indirim
+    resources :users, only: [:kurum_indirim] do
+      post :kurum_indirim, on: :member
+    end
+  end
+  end
+
+
+  namespace :radiologists do
+    resources :reports, except: [:destroy]
+
+    resources :imagetaleps, except: [:create, :new] do
+      get :kabul
+      get :reddet
+      get :TaslakOnayla
+    end
+    get :havuz
+    resources :dashboard, only: :index
+
+  end
+
+  namespace :sekreters do
+    resources :reports, except: [:destroy]
+    resources :imagetaleps, only: [:index]
+    resources :dashboard, only: :index
+
+  end
+
+  namespace :instutions do
+    resources :reports, only: :show
+    resources :imagetaleps do
+      get :update_radyologlist , :as => 'update_radyologlist'
+    end
+
+    resources :dashboard, only: :index
   end
 
   root 'welcome#index'
@@ -27,6 +68,7 @@ Rails.application.routes.draw do
   get 'admins/kurum'
   get 'admins/raduzm'
   get 'admins/egitmen'
+
 
   get 'teachers/index'
   get 'teachers/sinav'
@@ -40,15 +82,16 @@ Rails.application.routes.draw do
   get 'students/sinavdegerlendir'
   get 'students/sinavlar'
 
-  get 'instutions/index'
+  get 'instutions/main'
   get 'instutions/maliyet'
   get 'instutions/raporlar'
 
 
-  get 'radiologists/index'
+  get 'radiologists/main'
   get 'radiologists/konsultasyon'
   get 'radiologists/maliyet'
   get 'radiologists/talep'
+  get 'radiologists/reports/show'
 
 
 
