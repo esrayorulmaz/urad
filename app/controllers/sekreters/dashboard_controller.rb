@@ -1,4 +1,4 @@
-class Ucrets::DashboardController < Ucrets::BaseController
+class Sekreters::DashboardController < Sekreters::BaseController
   def index
   end
 end

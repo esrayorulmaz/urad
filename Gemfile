@@ -16,7 +16,8 @@ gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0'
 
 gem 'spring',        group: :development
-
+gem 'execjs'
+gem 'therubyracer'
 gem 'simple_form'
 gem 'devise', '~> 3.4.1'
 gem 'bootstrap-sass', '~> 3.3.3'
