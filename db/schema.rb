@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150623105526) do
+ActiveRecord::Schema.define(version: 20150706105102) do
 
   create_table "iletisims", force: true do |t|
     t.string   "title"
@@ -41,6 +41,15 @@ ActiveRecord::Schema.define(version: 20150623105526) do
     t.string   "sekreter_id"
     t.string   "rapor_suresi"
     t.float    "rapor_ucreti",  limit: 24
+  end
+
+  create_table "indirims", force: true do |t|
+    t.text     "tur"
+    t.integer  "aralik"
+    t.string   "oran"
+    t.string   "integer"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "reports", force: true do |t|

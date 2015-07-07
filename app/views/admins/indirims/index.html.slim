@@ -1,0 +1,84 @@
+
+javascript:
+ $(document).ready(function () {
+  $('input:radio').change(
+            function ()
+            {
+              if($(this).val()=="talep"||$(this).val()=="konsul"||$(this).val()=="tum")
+              {
+                window.location.replace("/admins/indirims." + $(this).val())
+              }
+            }
+    );
+  });
+
+
+
+
+=form_for [:admins, @indirim], validate: true, html: {multipart: true} do |f|
+  table style=("font-size:9pt; width:50%;")
+    tbody
+      tr
+        td
+          = f.radio_button :tur, "tum", :checked => @indirim.tur == "Tum" ? true : false
+          = label :tur, 'Tümü'
+      tr
+        td
+          = f.radio_button :tur, "talep" ,:checked => @indirim.tur== "Degerlendirme" ? true : false
+          = label :tur, 'Degerlendirme Talep indirimleri'
+      tr
+        td
+          = f.radio_button  :tur,"konsul",:checked =>@indirim.tur == "Konsultasyon" ? true : false
+          = label :tur, 'Konsultasyon Talep indirimleri'
+
+
+
+  table.table style=("font-size:9pt; width:80%;")
+    thead
+      tr
+        th Talep Miktarı
+        th İndirim Oranı(%)
+
+
+
+    tbody
+      - @indirims.each do |indrm|
+        tr
+          td= indrm.aralik
+          td= indrm.oran
+
+          td= link_to "Oran oluştur", href:"#" , data: { toggle: "modal", target: "##{indrm.id}" },  class: 'btn btn-default btn-xs' do
+            i.icon.glyphicon.glyphicon-pencil
+          .modal aria-hidden="true" id="#{indrm.id}" aria-labelledby="mainModalLabel" role="dialog" tabindex="-1"
+            .modal-dialog
+              .modal-content
+                .modal-header
+                  button.close data-dismiss="modal" aria-label = "Close" type="button"
+                    span aria-hidden="true"  &times;
+                    span.sr-only Close
+                  h4#myModalLabel.modal-title İndirim Oranı
+                .modal-body
+                  =render 'admins/indirims/edit',  indirim: indrm
+                .modal-footer
+                  button.btn.btn-default data-dismiss = "modal" type = "button" Kapat
+
+  br
+-if @indirims.length==0
+  = link_to "Aralık Oluştur", href: "#", data: {toggle: "modal", target: "#aralik"}, class: 'btn btn-default btn-s' do
+    i.icon.glyphicon.glyphicon-plus
+
+  .modal aria-hidden="true" id="aralik" aria-labelledby="mainModalLabel" role="dialog" tabindex="-1"
+    .modal-dialog
+      .modal-content
+        .modal-header
+          button.close data-dismiss="modal" aria-label = "Close" type="button"
+            span aria-hidden="true"  &times;
+            span.sr-only Close
+          h4#myModalLabel.modal-title Aralık düzenle
+        .modal-body
+          =render 'admins/indirims/form', indirim: Indirim.new
+        .modal-footer
+          button.btn.btn-default data-dismiss = "modal" type = "button" Kapat
+-else
+  = link_to admins_indirim_path(@indirims[0].id ,:format=> @indirim.tur), :method => :delete, :data => {:confirm => "'#{@indirim.tur}' alana ait Aralıklar Sıfılanacak?"}, class: 'btn btn-default btn-xs' do
+    i.glyphicon.glyphicon-trash

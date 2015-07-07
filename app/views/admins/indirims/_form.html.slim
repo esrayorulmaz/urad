@@ -1,0 +1,17 @@
+
+  = form_for [:admins,indirim], class: 'form-vertical'  do |f|
+
+    .field.form-group
+      = f.radio_button :tur, "Degerlendirme", :checked => true
+      = label :tur, 'Degerlendirme'
+
+    .field.form-group
+      = f.radio_button :tur, "Konsultasyon"
+      = label :tur, 'Konsultasyon'
+
+    .field.form-group
+      = f.label "Aralık (100 lük dilim sayısı)"
+      = f.text_field :aralik, class: 'form-control'
+
+    .actions
+      = f.submit 'Kaydet', class: 'btn btn-default'

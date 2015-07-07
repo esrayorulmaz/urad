@@ -18,6 +18,7 @@
 //= require bootstrap-wysihtml5
 
 
+
 //= require_tree .
 //= require bootstrap-wysihtml5
 
@@ -29,6 +30,7 @@ $(document).ready(function(){
 $(document).on('page:load', function(){
     window['rangy'].initialized = true
 })
+
 
 
 

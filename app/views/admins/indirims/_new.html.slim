@@ -1,0 +1,18 @@
+
+=simple_form_for [:admins,@indirim] ,remote: true, html: { multipart: true } do |f|
+  table
+    tr
+      td
+        = f.radio_button :tur, "Degerlendirme", :checked => true
+        = label :tur, 'Degerlendirme'
+    tr
+      td
+        = f.radio_button :tur, "Konsultasyon"
+        = label :tur, 'Konsultasyon'
+    tr
+      td
+        = f.label "Aralık (100 lük dilim sayısı)"
+        = f.text_field :aralik, class: 'form-control'
+
+  .actions
+    = f.submit 'Kaydet', class: 'btn btn-default'

@@ -21,7 +21,9 @@ gem 'therubyracer'
 gem 'simple_form'
 gem 'devise', '~> 3.4.1'
 gem 'bootstrap-sass', '~> 3.3.3'
-
+group :assets do
+  gem 'jquery-modal-rails'
+end
 gem 'model_to_locale'
 gem 'rails-i18n', '~> 4.0.0'
 gem 'will_paginate', '~> 3.0.6'
@@ -30,7 +32,7 @@ gem 'ransack'
 gem 'jquery-ui-rails'
 gem "breadcrumbs_on_rails"
 gem 'katip'
-#gem 'better_errors'
+gem 'better_errors'
 gem 'binding_of_caller'
 gem "bullet", :group => "development"
 gem 'annotate', '~> 2.6.5'

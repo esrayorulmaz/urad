@@ -1,0 +1,40 @@
+
+
+h1 Kurum indirim işlemleri
+
+table.table style=("font-size:9pt; width:80%;")
+  thead
+    tr
+      th Kurum Sicil/TC No:
+      th Kurum Adı
+      th Telefon
+      th Adres
+      th Indirim
+
+
+  tbody
+    - @users.each do |kurum|
+      tr
+        td= kurum.tc
+        td= kurum.nameSurname
+        td= kurum.phone
+        td= kurum.adres
+        td= kurum.indirim
+        td= link_to "düzenle", href:"#" , data: { toggle: "modal", target: "##{kurum.id}" },  class: 'btn btn-default btn-xs' do
+          i.icon.glyphicon.glyphicon-pencil
+        .modal aria-hidden="true" id="#{kurum.id}" aria-labelledby="mainModalLabel" role="dialog" tabindex="-1"
+          .modal-dialog
+            .modal-content
+              .modal-header
+                button.close data-dismiss="modal" aria-label = "Close" type="button"
+                  span aria-hidden="true"  &times;
+                  span.sr-only Close
+                h4#myModalLabel.modal-title İndirim düzenle
+              .modal-body
+                =render 'admins/users/form',  user: kurum
+              .modal-footer
+                button.btn.btn-default data-dismiss = "modal" type = "button" Kapat
+
+  br
+    = link_to admins_users_path, class: 'btn btn-default btn-s' do
+      i.icon.glyphicon.glyphicon-circle-arrow-left

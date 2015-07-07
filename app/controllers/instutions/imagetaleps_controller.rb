@@ -17,13 +17,25 @@ class Instutions::ImagetalepsController <Instutions::BaseController
     @imagetalep = Imagetalep.new
     @imagetalep.durum="Talep"
     @user=User.first
-
+    @kurummiktar=Imagetalep.where(["gonderen_mail=?",current_user.email]).count
+    @indirims=Indirim.where(["tur=?","Degerlendirme"]).all
+    @geneloran=0;
+    if @kurummiktar>=@indirims[@indirims.count-1].aralik
+          @oran= @indirims[@indirims.count-1].oran
+    else
+        for i in 0.. @indirims.count-2
+             @minindirim=@indirims[i]
+             @maxindirim=@indirims[i+1]
+             if @kurummiktar>=@minindirim.aralik&&@kurummiktar<@maxindirim.aralik
+                  @geneloran=@minindirim.oran
+                  break
+             end
+        end
+    end
   end
 
   def edit
   end
-
-
 
   def create
     @imagetalep = Imagetalep.new(imagetalep_params)
@@ -70,6 +82,6 @@ class Instutions::ImagetalepsController <Instutions::BaseController
     end
 
     def imagetalep_params
-      params.require(:imagetalep).permit(:gonderen_tc, :gonderen_name, :gonderen_mail, :image_tur,:image,:hastatc, :unvan,:hastaname, :hastacinsiyet, :hastayasi,:picture,:user_id,:durum)
+      params.require(:imagetalep).permit(:gonderen_tc, :gonderen_name, :gonderen_mail, :image_tur,:image,:hastatc, :unvan,:hastaname, :hastacinsiyet, :hastayasi,:picture,:user_id,:durum,:rapor_suresi,:rapor_ucreti)
     end
 end

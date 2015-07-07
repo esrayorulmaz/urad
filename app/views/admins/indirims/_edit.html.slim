@@ -1,0 +1,9 @@
+
+= form_for [:admins,indirim], class: 'form-vertical'  do |f|
+
+  .field.form-group
+    = f.label "İndirim Oranı (%)"
+    = f.text_field :oran, class: 'form-control'
+
+  .actions
+    = f.submit 'Kaydet', class: 'btn btn-default'

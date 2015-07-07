@@ -23,14 +23,10 @@ Rails.application.routes.draw do
       get :gecmis, on: :member
     end
     resources :dashboard, only: :index
-    get :kurum_indirim
-    resources :users, only: [:kurum_indirim] do
-      post :kurum_indirim, on: :member
-    end
+    resources :users , only:[:edit , :update,:index]
+    resources :indirims
   end
  
-
-
   namespace :radiologists do
     resources :reports, except: [:destroy]
 
@@ -56,7 +52,6 @@ Rails.application.routes.draw do
     resources :imagetaleps do
       get :update_radyologlist , :as => 'update_radyologlist'
     end
-
     resources :dashboard, only: :index
   end
 
@@ -68,6 +63,7 @@ Rails.application.routes.draw do
   get 'admins/kurum'
   get 'admins/raduzm'
   get 'admins/egitmen'
+  get 'admins/muhasebe'
 
 
   get 'teachers/index'

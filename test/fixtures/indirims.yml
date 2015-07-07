@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  tur: MyText
+  aralik: 1
+  oran: MyString
+  integer: MyString
+
+two:
+  tur: MyText
+  aralik: 1
+  oran: MyString
+  integer: MyString
